@@ -42,6 +42,27 @@ const App = () => {
             <Route path="/" element={<Home onFilter={handleFilter} />} />
             <Route path="/:burgerId" element={<Burger />} />
           </Routes>
+          <footer className="text-sm px-4 py-10 border-t-zinc-800 border-t mt-10">
+            <span className="text-[#EAEBED]">
+              Rua Presidente Carlos Cavalcanti, 734 - Centro
+              <br />
+              Curitiba-PR
+              <br />
+              CEP: 80020-280
+            </span>
+
+            <span className="block mt-4 text-zinc-600">
+              © {new Date().getFullYear()}{' '}
+              <a
+                href="https://github.com/gaabrielo"
+                target="_blank"
+                className="underline"
+              >
+                gaabrielo
+              </a>
+              . All rights reserved.
+            </span>
+          </footer>
         </div>
       </div>
     </Router>

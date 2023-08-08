@@ -59,7 +59,7 @@ function List({ search }: ListProps) {
   }, [search]);
 
   return (
-    <div className="flex flex-col mb-6">
+    <div className="flex flex-col">
       <ul className="flex flex-col gap-4 text-white">
         {items &&
           Object.entries(items).map(([bgType, burger]) => (

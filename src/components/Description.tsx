@@ -2,7 +2,6 @@ import { Export, Star } from '@phosphor-icons/react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  max-width: 500px;
   width: 100%;
   height: 100%;
   margin: 0 auto;
