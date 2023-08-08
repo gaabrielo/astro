@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Drawer } from '../components/Drawer';
-import { Price } from '../components/Price';
 import { Description } from '../components/Description';
-import Swiper from '../components/Swiper';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../supabase';
 import { ArrowLeft, Export, Hamburger } from '@phosphor-icons/react';

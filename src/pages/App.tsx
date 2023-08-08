@@ -10,9 +10,7 @@ import { Searchbox } from '../components/Searchbox';
 
 const App = () => {
   const [isOpen, setIsOpen] = useState(false);
-  function handleFilter() {
-    console.log('yeep');
-  }
+  function handleFilter() {}
 
   return (
     <Router>
