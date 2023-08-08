@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  background: #111111;
+  /* background: radial-gradient(
+    circle at 24.1% 68.8%,
+    rgb(20, 20, 20) 0%,
+    rgb(0, 0, 0) 99.4%
+  ); */
+}
+
+body,
+html,
+textarea,
+input,
+p,
+span {
+  font-family: 'Poppins', sans-serif;
+  /* color: #343434; */
+  color: white;
+}
