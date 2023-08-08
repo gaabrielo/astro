@@ -28,8 +28,7 @@ interface ListProps {
 }
 
 function List({ search }: ListProps) {
-  console.log('🚀 ~ file: List.tsx:26 ~ List ~ search:', search);
-  const [items, setItems] = useState<any>();
+  const [items, setItems] = useState<BurgerProps>();
 
   const fetchData = async () => {
     let data: any = await supabase.from('items').select();
@@ -43,7 +42,7 @@ function List({ search }: ListProps) {
       data = await supabase.from('items').select();
     }
 
-    const formattedItems = data?.data.reduce((acc, mitem: BurgerProps) => {
+    const formattedItems = data?.data.reduce((acc: any, mitem: BurgerProps) => {
       if (!acc[mitem.type]) {
         acc[mitem.type] = [];
       }
@@ -66,12 +65,13 @@ function List({ search }: ListProps) {
           Object.entries(items).map(([bgType, burger]) => (
             <li key={bgType}>
               <h1 className="text-xl px-4 mt-6 font-normal">
+                {/* @ts-ignore */}
                 {burgerType[bgType]}{' '}
                 <strong className="text-[#616263] font-medium">
                   {burger.length}
                 </strong>
               </h1>
-
+              {/* @ts-ignore */}
               {burger.map((bgr) => (
                 <li
                   key={bgr.id}

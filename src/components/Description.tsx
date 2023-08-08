@@ -19,7 +19,15 @@ const ReviewButton = styled.button`
   }
 `;
 
-export function Description({ burger }) {
+interface BurgerProps {
+  burger: {
+    name: string;
+    price: string;
+    ingredients: string;
+  };
+}
+
+export function Description({ burger }: any) {
   if (!burger) return <></>;
   return (
     <Container>

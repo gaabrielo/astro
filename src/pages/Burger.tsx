@@ -9,9 +9,18 @@ import { supabase } from '../supabase';
 import { ArrowLeft, Export, Hamburger } from '@phosphor-icons/react';
 import { BurgerPageSkeleton } from '../components/skeleton/BurgerPageSkeleton';
 
+interface BurgerProps {
+  image: string;
+  id: number;
+  type: string;
+  name: string;
+  price: string;
+  description?: string;
+}
+
 export default function BurgerPage() {
   // const [open, setOpen] = useState(false);
-  const [burgerData, setBurgerData] = useState();
+  const [burgerData, setBurgerData] = useState<BurgerProps>();
   const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
