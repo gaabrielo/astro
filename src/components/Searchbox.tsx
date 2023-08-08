@@ -46,7 +46,7 @@ export function Searchbox({ onSearchTermChange, onFilter }: any) {
   };
 
   return (
-    <div className="w-full px-4">
+    <div className="w-full px-4 max-w-[calc(32rem-32px)]">
       <div className="w-full flex items-center bg-[#161616] px-2 rounded-xl">
         <MagnifyingGlass
           size={24}
