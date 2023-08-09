@@ -62,7 +62,7 @@ export default function BurgerPage() {
         onOpenChange={setIsReviewModalOpen}
         onCancel={() => {}}
         dismissible={false}
-        h="100%"
+        h="90%"
       >
         <Review />
       </Drawer>
