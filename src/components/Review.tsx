@@ -13,7 +13,7 @@ const options = [
 ];
 
 export function Review() {
-  const [value, setValue] = useState({});
+  const [value, setValue] = useState<any>({});
 
   const handleSelect = (v: string, fType: string) => {
     setValue((prev: any) => ({
