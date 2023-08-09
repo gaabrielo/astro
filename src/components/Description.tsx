@@ -64,7 +64,7 @@ export function Description({ burger }: any) {
       </h2>
 
       <p
-        className="mt-1 text-[#EAEBED]"
+        className="mt-1 text-[#EAEBED] leading-7"
         // style={{ color: '#7F7F7F' }}
       >
         {burger.ingredients}

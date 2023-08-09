@@ -46,7 +46,7 @@ export default function BurgerPage() {
     if (burgerId) {
       fetchData();
     }
-  }, []);
+  }, [burgerId]);
 
   function handleBack() {
     navigate(-1);
