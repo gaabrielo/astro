@@ -127,7 +127,7 @@ export function Review() {
           </MainButton>
         </Form.Submit>
       </FormRoot>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 }
