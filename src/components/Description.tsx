@@ -26,7 +26,7 @@ interface BurgerProps {
   };
 }
 
-export function Description({ burger }: any) {
+export function Description({ burger, onClickReview }: any) {
   if (!burger) return <></>;
   return (
     <Container>
@@ -48,7 +48,10 @@ export function Description({ burger }: any) {
             <Export size={20} color="#EAEBED" />
           </button>
         </div> */}
-        <ReviewButton className="px-4 py-2 rounded-full text-sm flex items-center gap-1 text-[#EAEBED]">
+        <ReviewButton
+          className="px-4 py-2 rounded-full text-sm flex items-center gap-1 text-[#EAEBED]"
+          onClick={onClickReview}
+        >
           <Star color="#EAEBED" size={16} />
           <span>Avaliar</span>
         </ReviewButton>

@@ -1,14 +1,18 @@
-'use client';
-
 import { Drawer as VaulDrawer } from 'vaul';
 
-export function GlobalFilterDrawer({ children, open, onCancel, ...rest }: any) {
+export function GlobalFilterDrawer({
+  children,
+  open,
+  onCancel,
+  h = '50%',
+  ...rest
+}: any) {
   return (
     <VaulDrawer.Root shouldScaleBackground open={open} {...rest}>
       <VaulDrawer.Portal>
         <VaulDrawer.Overlay className="fixed inset-0 bg-black/40" />
         <VaulDrawer.Content
-          className="flex flex-col rounded-t-[10px] h-[50%] mt-24 fixed bottom-0 left-0 right-0 overflow-hidden bg-[#111111]"
+          className={`flex flex-col rounded-t-[10px] ${`h-[${h}]`} mt-24 fixed bottom-0 left-0 right-0 overflow-hidden bg-[#111111]`}
           // style={{
           //   background:
           //     'radial-gradient(circle at 24.1% 68.8%, rgb(25, 25, 25) 0%, rgb(0, 0, 0) 99.4%)',

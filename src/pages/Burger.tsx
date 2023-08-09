@@ -5,6 +5,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../supabase';
 import { ArrowLeft, Export, Hamburger } from '@phosphor-icons/react';
 import { BurgerPageSkeleton } from '../components/skeleton/BurgerPageSkeleton';
+import { GlobalFilterDrawer as Drawer } from '../components/GlobalFilterDrawer';
+import { Review } from '../components/Review';
 
 interface BurgerProps {
   image: string;
@@ -19,6 +21,7 @@ export default function BurgerPage() {
   // const [open, setOpen] = useState(false);
   const [burgerData, setBurgerData] = useState<BurgerProps>();
   const [isLoading, setIsLoading] = useState(true);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
   const navigate = useNavigate();
   let { burgerId } = useParams();
@@ -53,7 +56,16 @@ export default function BurgerPage() {
   }
 
   return (
-    <div className="flex flex-col w-full max-w-lg mx-auto relative">
+    <div className="flex flex-col w-full max-w-lg mx-auto relative bg-[#111111]">
+      <Drawer
+        open={isReviewModalOpen}
+        onOpenChange={setIsReviewModalOpen}
+        onCancel={() => {}}
+        dismissible={false}
+        h="70%"
+      >
+        <Review />
+      </Drawer>
       <button
         type="button"
         className="rounded-full p-2 pl-1 absolute top-2 left-4 z-10"
@@ -80,7 +92,10 @@ export default function BurgerPage() {
           </ImageContainer>
 
           <div className="w-full mt-3 mb-8 px-4">
-            <Description burger={burgerData} />
+            <Description
+              burger={burgerData}
+              onClickReview={() => setIsReviewModalOpen(true)}
+            />
           </div>
           <Actions>
             <button className="w-full py-4 bg-white text-black font-medium max-h-14 rounded-full">
