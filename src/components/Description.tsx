@@ -32,7 +32,7 @@ export function Description({ burger }: any) {
     <Container>
       <div className="flex justify-between items-start">
         <div className="flex-1">
-          <div className="flex gap-3 items-baseline font-semibold">
+          <div className="flex gap-2 items-baseline font-medium leading-6">
             <img src="./assets/astro-mini-logo.svg" alt="Astro" />
             <span>/</span>
             <span className="text-sm">ASTRO SMASH</span>

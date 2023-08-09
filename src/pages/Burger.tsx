@@ -53,9 +53,7 @@ export default function BurgerPage() {
   }
 
   return (
-    // <Drawer open={open} onOpenChange={setOpen}>
     <div className="flex flex-col w-full max-w-lg mx-auto relative">
-      {/* <header className="w-full absolute top-2 left-2 right-2 flex justify-between items-center"> */}
       <button
         type="button"
         className="rounded-full p-2 pl-1 absolute top-2 left-4 z-10"
@@ -115,7 +113,6 @@ export default function BurgerPage() {
       >
         <Export size={24} color="#EAEBED" />
       </button> */}
-      {/* </header> */}
 
       {/* <div className="w-full static bottom-0 bg-[#181818]">
           <Shadow>
@@ -134,7 +131,6 @@ export default function BurgerPage() {
         Um clássico mais vivo do que nunca e um dos mais queridos da oficina!
       </p> */}
     </div>
-    // </Drawer>
   );
 }
 
