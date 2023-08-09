@@ -25,19 +25,46 @@ interface ItemsProps {
 
 interface ListProps {
   search?: string;
+  filters?: any;
 }
 
-function List({ search }: ListProps) {
+function List({ search, filters }: ListProps) {
+  console.log('🚀 ~ file: List.tsx:32 ~ List ~ search:', search);
+  console.log('🚀 ~ file: List.tsx:31 ~ List ~ filters:', filters);
   const [items, setItems] = useState<BurgerProps>();
 
   const fetchData = async () => {
-    let data: any = await supabase.from('items').select();
+    let data: any;
 
     if (search) {
       data = await supabase
         .from('items')
         .select()
         .ilike('name', `%${search.toLowerCase()}%`);
+    } else if (
+      !!filters &&
+      filters['category']?.length &&
+      filters['sort']?.length
+    ) {
+      data = await supabase
+        .from('items')
+        .select()
+        .eq('type', filters['category'] || null)
+        .order('price', {
+          ascending: filters['sort'] === 'price_low' ?? null,
+        });
+    } else if (!!filters && filters['category']?.length) {
+      data = await supabase
+        .from('items')
+        .select()
+        .eq('type', filters['category'] || null);
+    } else if (!!filters && filters['sort']?.length) {
+      data = await supabase
+        .from('items')
+        .select()
+        .order('price', {
+          ascending: filters['sort'] === 'price_low' ?? null,
+        });
     } else {
       data = await supabase.from('items').select();
     }
@@ -56,7 +83,7 @@ function List({ search }: ListProps) {
 
   useEffect(() => {
     fetchData();
-  }, [search]);
+  }, [search, filters]);
 
   return (
     <div className="flex flex-col">
@@ -83,26 +110,27 @@ function List({ search }: ListProps) {
                       alt={bgr.name}
                       className="object-cover h-60 w-full"
                     />
-                  </Link>
-                  <div className="w-full flex justify-between items-center px-4 py-2 hover:cursor-pointer">
-                    <div className="flex flex-col text-left">
-                      {bgType !== 'acc' && (
-                        <span className="leading-4 text-sm font-bold text-[#8A8A8A]">
-                          {bgType !== 'smash' ? 'GRELHADO' : 'SMASH'}
-                        </span>
-                      )}
 
-                      <h1 className="font-bold text-lg uppercase leading-6">
-                        {bgr.name}
-                      </h1>
-                      <h1 className="font-normal leading-4 mt-2">
-                        <strong className="text-sm font-normal">R$ </strong>
-                        {bgr.price}
-                      </h1>
+                    <div className="w-full flex justify-between items-center px-4 py-3 hover:cursor-pointer">
+                      <div className="flex flex-col text-left">
+                        {bgType !== 'acc' && (
+                          <span className="leading-4 text-sm font-bold text-[#8A8A8A]">
+                            {bgType !== 'smash' ? 'GRELHADO' : 'SMASH'}
+                          </span>
+                        )}
+
+                        <h1 className="font-bold text-lg uppercase leading-6">
+                          {bgr.name}
+                        </h1>
+                        <h1 className="font-normal leading-4 mt-2">
+                          <strong className="text-sm font-normal">R$ </strong>
+                          {bgr.price}
+                        </h1>
+                      </div>
+
+                      <CaretRight weight="thin" color="#EAEBED" size={20} />
                     </div>
-
-                    <CaretRight weight="thin" color="#EAEBED" size={20} />
-                  </div>
+                  </Link>
                 </li>
               ))}
             </li>

@@ -47,7 +47,7 @@ export function Searchbox({ onSearchTermChange, onFilter }: any) {
 
   return (
     <div className="w-full px-4 max-w-lg">
-      <div className="w-full flex items-center bg-[#161616] px-2 rounded-xl">
+      <div className="w-full flex items-center bg-[#161616] px-2 rounded-full">
         <MagnifyingGlass
           size={24}
           weight="thin"
@@ -62,7 +62,7 @@ export function Searchbox({ onSearchTermChange, onFilter }: any) {
           onChange={debouncedResults}
         />
         <FilterButton
-          className="px-3 py-2 rounded-lg flex gap-1"
+          className="px-4 py-2 rounded-full flex gap-1"
           onClick={() => (search.length > 0 ? handleCleanSearch() : onFilter())}
         >
           {search.length > 0 ? (

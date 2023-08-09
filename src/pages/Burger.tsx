@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Drawer } from '../components/Drawer';
 import { Description } from '../components/Description';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '../supabase';
