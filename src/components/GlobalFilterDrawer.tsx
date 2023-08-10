@@ -12,7 +12,7 @@ export function GlobalFilterDrawer({
       <VaulDrawer.Portal>
         <VaulDrawer.Overlay className="fixed inset-0 bg-black/40" />
         <VaulDrawer.Content
-          className={`flex flex-col rounded-t-[10px] h-[70%] max-h-[90vh] fixed bottom-0 left-0 right-0 overflow-hidden`}
+          className={`flex flex-col rounded-t-[10px] h-[${h}] max-h-[90vh] fixed bottom-0 left-0 right-0 overflow-hidden`}
           // style={{
           //   background:
           //     'radial-gradient(circle at 24.1% 68.8%, rgb(25, 25, 25) 0%, rgb(0, 0, 0) 99.4%)',
