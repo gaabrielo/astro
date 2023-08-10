@@ -6,7 +6,7 @@ export function BurgerPageSkeleton() {
       <div className="px-4 py-2">
         <div className="flex justify-between items-start mt-3">
           <div className="w-[10rem] h-10 bg-gray-300 rounded-lg"></div>
-          <div className="w-[5rem] h-8 bg-gray-300 rounded-lg"></div>
+          <div className="w-[5rem] h-8 bg-gray-300 rounded-full"></div>
         </div>
         <div className="w-[5rem] h-8 bg-gray-300 rounded-lg mt-2"></div>
 

@@ -41,7 +41,7 @@ export function Review() {
                   {['Ruim', 'Bom', 'Excelente'].map((rank, idx) => (
                     <ToggleGroup.Item value={rank} asChild>
                       <ReviewButton
-                        className={`px-4 py-2 rounded-full text-sm flex items-center 
+                        className={`px-4 sm:px-3 py-2 rounded-full text-sm flex items-center 
                       gap-1 hover:opacity-100 transition-all ${
                         value[vType] == rank
                           ? 'opacity-100 text-[#EAEBED]'
@@ -49,10 +49,10 @@ export function Review() {
                       }`}
                         // onClick={onClickReview}
                       >
-                        {rank}
                         {[...Array(idx + 1)].map(() => (
                           <Star weight="fill" color="#EDC967" size={16} />
                         ))}
+                        {rank}
                       </ReviewButton>
                     </ToggleGroup.Item>
                   ))}
@@ -66,20 +66,6 @@ export function Review() {
       </ul>
 
       <FormRoot>
-        <Form.Field name="name">
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'baseline',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Form.Label>Nome</Form.Label>
-          </div>
-          <Form.Control asChild>
-            <input type="text" className="w-full p-3 py-2 rounded-md" />
-          </Form.Control>
-        </Form.Field>
         <Form.Field name="email">
           <div
             style={{
@@ -104,6 +90,20 @@ export function Review() {
             />
           </Form.Control>
         </Form.Field>
+        <Form.Field name="name">
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'baseline',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Form.Label>Nome</Form.Label>
+          </div>
+          <Form.Control asChild>
+            <input type="text" className="w-full p-3 py-2 rounded-md" />
+          </Form.Control>
+        </Form.Field>
         <Form.Field name="review">
           <div
             style={{
@@ -113,9 +113,6 @@ export function Review() {
             }}
           >
             <Form.Label>Mensagem (opcional)</Form.Label>
-            {/* <Form.Message match="valueMissing">
-              Please enter a question
-            </Form.Message> */}
           </div>
           <Form.Control asChild>
             <textarea className="w-full min-h-[5rem] p-3 rounded-md" />
