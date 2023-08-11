@@ -23,56 +23,56 @@ const App = () => {
 
   return (
     <GlobalFilterProvider>
-      <Router>
-        <GlobalFilterDrawer
-          open={isFilterOpen}
-          onOpenChange={setIsFilterOpen}
-          onCancel={() => setFilters({})}
-        >
-          <GlobalFilter
-            defaultValue={filters}
-            onFilter={(f: any) => {
-              setFilters(f);
-              setIsFilterOpen(false);
-            }}
-          />
-        </GlobalFilterDrawer>
+      {/* <Router> */}
+      <GlobalFilterDrawer
+        open={isFilterOpen}
+        onOpenChange={setIsFilterOpen}
+        onCancel={() => setFilters({})}
+      >
+        <GlobalFilter
+          defaultValue={filters}
+          onFilter={(f: any) => {
+            setFilters(f);
+            setIsFilterOpen(false);
+          }}
+        />
+      </GlobalFilterDrawer>
 
-        <div vaul-drawer-wrapper="" className="overflow-y-hidden">
-          <Menu isOpen={isOpen} onClose={setIsOpen} />
-          <header className="w-full text-right px-2 h-20 relative bg-[#111111]">
-            <span className="absolute left-0 right-0 top-0 w-full text-center flex items-center h-20 z-0">
-              <Link to="/" className="mx-auto my-0 mt-2">
-                <img src="/assets/astrologo.svg" alt="Astro Hamburgueria" />
-              </Link>
-            </span>
+      <div vaul-drawer-wrapper="" className="overflow-y-hidden">
+        <Menu isOpen={isOpen} onClose={setIsOpen} />
+        <header className="w-full text-right px-2 h-20 relative bg-[#111111]">
+          <span className="absolute left-0 right-0 top-0 w-full text-center flex items-center h-20 z-0">
+            <Link to="/" className="mx-auto my-0 mt-2">
+              <img src="/assets/astrologo.svg" alt="Astro Hamburgueria" />
+            </Link>
+          </span>
 
-            <div className="absolute w-full left-0 right-0 top-0 z-10 flex justify-between items-center">
-              <button className="py-8 px-6" onClick={() => setIsOpen(true)}>
-                <span className="text-2xl font-light">
-                  <img src="/assets/menu-icon.svg" alt="Abrir Menu" />
-                </span>
-              </button>
+          <div className="absolute w-full left-0 right-0 top-0 z-10 flex justify-between items-center">
+            <button className="py-8 px-6" onClick={() => setIsOpen(true)}>
+              <span className="text-2xl font-light">
+                <img src="/assets/menu-icon.svg" alt="Abrir Menu" />
+              </span>
+            </button>
 
-              <a href="https://www.instagram.com/burgerastro/" target="_blank">
-                <span className="py-8 px-6 block">
-                  <InstagramLogo size="24" color="white" weight="thin" />
-                </span>
-              </a>
-            </div>
-          </header>
-          <div className="h-[calc(100vh-5rem)] overflow-y-auto">
-            <Routes>
-              <Route
-                path="/"
-                element={<Home onFilter={handleFilter} filters={filters} />}
-              />
-              <Route path="/:burgerId" element={<Burger />} />
-            </Routes>
-            <Footer />
+            <a href="https://www.instagram.com/burgerastro/" target="_blank">
+              <span className="py-8 px-6 block">
+                <InstagramLogo size="24" color="white" weight="thin" />
+              </span>
+            </a>
           </div>
+        </header>
+        <div className="h-[calc(100vh-5rem)] overflow-y-auto">
+          <Routes>
+            <Route path="/:burgerId" element={<Burger />} />
+            <Route
+              path="/"
+              element={<Home onFilter={handleFilter} filters={filters} />}
+            />
+          </Routes>
+          <Footer />
         </div>
-      </Router>
+      </div>
+      {/* </Router> */}
     </GlobalFilterProvider>
   );
 };
