@@ -46,35 +46,33 @@ export function Searchbox({ onSearchTermChange, onFilter }: any) {
   };
 
   return (
-    <div className="w-full px-4 max-w-lg">
-      <div className="w-full flex items-center bg-[#161616] px-2 rounded-full">
-        <MagnifyingGlass
-          size={24}
-          weight="thin"
-          color="#616263"
-          className="mr-2"
-        />
-        <input
-          ref={inputSearchRef}
-          type="text"
-          placeholder="Buscar"
-          className="flex-1 bg-transparent py-3 placeholder:text-[#616263] text-[#D9D9D9] font-normal mr-2"
-          onChange={debouncedResults}
-        />
-        <FilterButton
-          className="px-4 py-2 rounded-full flex gap-1"
-          onClick={() => (search.length > 0 ? handleCleanSearch() : onFilter())}
-        >
-          {search.length > 0 ? (
-            <span className="text-sm text-[#616263]">Cancelar</span>
-          ) : (
-            <>
-              <Funnel size={20} weight="thin" color="#D9D9D9" />
-              <span className="text-sm text-[#616263]">Filtrar</span>
-            </>
-          )}
-        </FilterButton>
-      </div>
+    <div className="w-full flex items-center bg-[#161616] px-2 rounded-full">
+      <MagnifyingGlass
+        size={24}
+        weight="thin"
+        color="#616263"
+        className="mr-2"
+      />
+      <input
+        ref={inputSearchRef}
+        type="text"
+        placeholder="Buscar"
+        className="flex-1 bg-transparent py-3 placeholder:text-[#616263] text-[#D9D9D9] font-normal mr-2"
+        onChange={debouncedResults}
+      />
+      <FilterButton
+        className="px-4 py-2 rounded-full flex gap-1"
+        onClick={() => (search.length > 0 ? handleCleanSearch() : onFilter())}
+      >
+        {search.length > 0 ? (
+          <span className="text-sm text-[#616263]">Cancelar</span>
+        ) : (
+          <>
+            <Funnel size={20} weight="thin" color="#D9D9D9" />
+            <span className="text-sm text-[#616263]">Filtrar</span>
+          </>
+        )}
+      </FilterButton>
     </div>
   );
 }

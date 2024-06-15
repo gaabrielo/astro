@@ -70,7 +70,10 @@ function Home({ onFilter, filters }: any) {
   return (
     <div className="w-full relative">
       <main className="block w-full max-w-lg mx-auto my-0 bg-[#111111]">
-        <Searchbox onSearchTermChange={setSearch} onFilter={onFilter} />
+        {/* <div className="w-full px-4 max-w-lg">
+          <Searchbox onSearchTermChange={setSearch} onFilter={onFilter} />
+        </div> */}
+
         <List search={search} filters={filters} />
       </main>
     </div>
@@ -78,24 +81,29 @@ function Home({ onFilter, filters }: any) {
 }
 
 function Header({ setIsOpen }: any) {
+  const [search, setSearch] = useState();
+
   return (
-    <header className="w-full flex px-2 h-20 items-center justify-between bg-[#111111]">
-      <button className="py-8 px-6" onClick={() => setIsOpen(true)}>
+    <header className="w-full flex px-4 gap-3 h-20 items-center bg-[#111111]">
+      {/* <button className="py-6 px-4" onClick={() => setIsOpen(true)}>
         <span className="text-2xl font-light">
           <img src="/assets/menu-icon.svg" alt="Abrir Menu" />
         </span>
-      </button>
+      </button> */}
 
-      <Link to="/">
+      {/* <Link to="/">
         <img
           src="/assets/astrologo.svg"
           alt="Astro Hamburgueria"
           className="w-20"
         />
-      </Link>
+      </Link> */}
+      <div className="flex-1">
+        <Searchbox onSearchTermChange={setSearch} onFilter={() => {}} />
+      </div>
 
-      <a href="#">
-        <span className="py-3 px-4 block text-xs text-center text-[#616263]">
+      <button>
+        <span className="py-4 block text-xs text-center text-[#616263]">
           <ShoppingBag
             size="24"
             color="white"
@@ -104,7 +112,7 @@ function Header({ setIsOpen }: any) {
           />
           Pedido
         </span>
-      </a>
+      </button>
     </header>
   );
 }

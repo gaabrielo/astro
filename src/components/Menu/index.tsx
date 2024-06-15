@@ -100,7 +100,7 @@ export function Menu({ isOpen, onClose }: MenuProps) {
           >
             Acompanhamentos
           </motion.a>
-          <motion.a
+          {/* <motion.a
             href=""
             initial={{ y: 80, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -115,7 +115,7 @@ export function Menu({ isOpen, onClose }: MenuProps) {
             }}
           >
             iFood
-          </motion.a>
+          </motion.a> */}
         </motion.div>
       )}
     </AnimatePresence>
