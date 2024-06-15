@@ -4,28 +4,17 @@ import * as Form from '@radix-ui/react-form';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { MainButton } from './MainButton';
-import { Footer } from './Footer';
-
-// const options = [
-//   { value: 'flavor', label: 'Sabor' },
-//   { value: 'price', label: 'Preço' },
-//   { value: 'service', label: 'Serviço e entrega' },
-// ];
 
 export function Review() {
   const [value, setValue] = useState<any>(null);
-  const rankRef = useRef(null);
-
-  // const handleSelect = (v: string, fType: string) => {
-  //   setValue((prev: any) => ({
-  //     ...prev,
-  //     [fType]: v,
-  //   }));
-  // };
+  const rankRef: any = useRef(null);
 
   const handleSelect = (v: any) => {
     setValue(v);
-    rankRef.current.value = v;
+
+    if (rankRef?.current) {
+      rankRef.current.value = v;
+    }
   };
 
   return (
@@ -34,7 +23,7 @@ export function Review() {
         type="single"
         aria-label="Ranking"
         onValueChange={handleSelect}
-        className="flex gap-4" 
+        className="flex gap-4 mt-2"
       >
         <>
           {[...Array(Number(value))].map((_, starred) => (
@@ -58,11 +47,6 @@ export function Review() {
 
       <FormRoot onSubmit={(val) => console.log(val)}>
         <Form.Field name="rank">
-          <Form.Message match="valueMissing">
-            {/* Por favor, insira um e-mail */}
-            answer that shit
-          </Form.Message>
-          {/* <Form.Message match="rangeUnderflow">answer that shit</Form.Message> */}
           <Form.Control asChild>
             <input
               ref={rankRef}
@@ -71,11 +55,12 @@ export function Review() {
               max={5}
               min={1}
               defaultValue={value}
-              // hidden
+              hidden
               required
             />
           </Form.Control>
         </Form.Field>
+
         <Form.Field name="email">
           <div
             style={{
@@ -84,7 +69,7 @@ export function Review() {
               justifyContent: 'space-between',
             }}
           >
-            <Form.Label>Email</Form.Label>
+            <Form.Label className="mb-1">Email</Form.Label>
             <Form.Message match="valueMissing">
               Por favor, insira um e-mail
             </Form.Message>
@@ -106,7 +91,7 @@ export function Review() {
               justifyContent: 'space-between',
             }}
           >
-            <Form.Label>Nome</Form.Label>
+            <Form.Label className="mb-1">Nome</Form.Label>
           </div>
           <Form.Control asChild>
             <input type="text" className="w-full p-3 py-2 rounded-md" />
@@ -120,7 +105,7 @@ export function Review() {
               justifyContent: 'space-between',
             }}
           >
-            <Form.Label>Mensagem (opcional)</Form.Label>
+            <Form.Label className="mb-1">Mensagem (opcional)</Form.Label>
           </div>
           <Form.Control asChild>
             <textarea className="w-full min-h-[5rem] p-3 rounded-md" />
@@ -149,8 +134,8 @@ const ReviewButton = styled.button`
 `;
 
 const FormRoot = styled(Form.Root)`
-  margin: 2.5rem 0 1.5rem 0;
-  /* padding: 0 1rem; */
+  margin: 2rem 0;
+
   display: flex;
   flex-direction: column;
   gap: 1rem;
