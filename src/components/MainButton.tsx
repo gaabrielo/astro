@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export function MainButton({ onClick, icon, children, className = null }: any) {
   const ReviewButton = styled.button`
-    background: rgba(34, 34, 34, 0.8);
+    background: rgba(34, 34, 34, 1);
+    /* background: rgb(219, 255, 0); */
     box-shadow: inset 0 1px 0 0 hsla(0, 0%, 100%, 0.1);
     transition: 0.5s;
     &:hover {

@@ -7,24 +7,16 @@ export function Footer() {
             Delivery e retirada
           </h2>
           <span className="text-[#EAEBED]">
-            Rua Presidente Carlos Cavalcanti, 734 - Centro
+            R. 21 de Abril, 980 - Centro
             <br />
-            Curitiba-PR
+            Palotina-PR
             <br />
-            CEP: 80020-280
+            CEP: 85950-001
           </span>
         </div>
 
         <span className="mt-4 text-zinc-600">
-          © {new Date().getFullYear()}{' '}
-          <a
-            href="https://github.com/gaabrielo"
-            target="_blank"
-            className="underline"
-          >
-            gaabrielo
-          </a>
-          . All rights reserved.
+          Astro Burger © {new Date().getFullYear()} All Rights Reserved.
         </span>
       </div>
     </footer>

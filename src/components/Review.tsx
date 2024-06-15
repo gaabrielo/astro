@@ -1,71 +1,81 @@
 import { Star } from '@phosphor-icons/react';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import * as Form from '@radix-ui/react-form';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { MainButton } from './MainButton';
 import { Footer } from './Footer';
 
-const options = [
-  { value: 'flavor', label: 'Sabor' },
-  { value: 'price', label: 'Preço' },
-  { value: 'service', label: 'Serviço e entrega' },
-];
+// const options = [
+//   { value: 'flavor', label: 'Sabor' },
+//   { value: 'price', label: 'Preço' },
+//   { value: 'service', label: 'Serviço e entrega' },
+// ];
 
 export function Review() {
-  const [value, setValue] = useState<any>({});
+  const [value, setValue] = useState<any>(null);
+  const rankRef = useRef(null);
 
-  const handleSelect = (v: string, fType: string) => {
-    setValue((prev: any) => ({
-      ...prev,
-      [fType]: v,
-    }));
+  // const handleSelect = (v: string, fType: string) => {
+  //   setValue((prev: any) => ({
+  //     ...prev,
+  //     [fType]: v,
+  //   }));
+  // };
+
+  const handleSelect = (v: any) => {
+    setValue(v);
+    rankRef.current.value = v;
   };
 
   return (
-    <>
-      <ul className="flex flex-col gap-6">
-        {options.map(({ value: vType, label }) => (
-          <li className="pl-4 flex flex-col gap-4" key={vType}>
-            <h1 className="text-[#EAEBED]">{label}</h1>
-            <div className="flex gap-2">
-              <ToggleGroup.Root
-                // className="flex flex-col"
-                type="single"
-                // defaultValue={defaultValue[type]}
-                aria-label="Filters"
-                onValueChange={(v) => handleSelect(v, vType)}
-                asChild
-              >
-                <>
-                  {['Ruim', 'Bom', 'Excelente'].map((rank, idx) => (
-                    <ToggleGroup.Item value={rank} asChild>
-                      <ReviewButton
-                        className={`px-4 sm:px-3 py-2 rounded-full text-sm flex items-center 
-                      gap-1 hover:opacity-100 transition-all ${
-                        value[vType] == rank
-                          ? 'opacity-100 text-[#EAEBED]'
-                          : 'opacity-50'
-                      }`}
-                        // onClick={onClickReview}
-                      >
-                        {[...Array(idx + 1)].map(() => (
-                          <Star weight="fill" color="#EDC967" size={16} />
-                        ))}
-                        {rank}
-                      </ReviewButton>
-                    </ToggleGroup.Item>
-                  ))}
-                </>
-              </ToggleGroup.Root>
-            </div>
+    <div className="mx-4">
+      <ToggleGroup.Root
+        type="single"
+        aria-label="Ranking"
+        onValueChange={handleSelect}
+        className="flex gap-4" 
+      >
+        <>
+          {[...Array(Number(value))].map((_, starred) => (
+            <ToggleGroup.Item
+              value={starred + 1 + ''}
+              className="text-[#CCA000] hover:opacity-80"
+            >
+              <Star weight="fill" size={38} />
+            </ToggleGroup.Item>
+          ))}
+          {[...Array(5 - Number(value))].map((_, idx) => (
+            <ToggleGroup.Item
+              value={Number(value) + idx + 1 + ''}
+              className="text-zinc-500 hover:text-[#CCA000] transition-all"
+            >
+              <Star weight="light" size={38} />
+            </ToggleGroup.Item>
+          ))}
+        </>
+      </ToggleGroup.Root>
 
-            <div className="w-full h-[1px] bg-zinc-800"></div>
-          </li>
-        ))}
-      </ul>
-
-      <FormRoot>
+      <FormRoot onSubmit={(val) => console.log(val)}>
+        <Form.Field name="rank">
+          <Form.Message match="valueMissing">
+            {/* Por favor, insira um e-mail */}
+            answer that shit
+          </Form.Message>
+          {/* <Form.Message match="rangeUnderflow">answer that shit</Form.Message> */}
+          <Form.Control asChild>
+            <input
+              ref={rankRef}
+              type="number"
+              name="rank"
+              max={5}
+              min={1}
+              defaultValue={value}
+              // hidden
+              required
+            />
+          </Form.Control>
+        </Form.Field>
         <Form.Field name="email">
           <div
             style={{
@@ -78,9 +88,7 @@ export function Review() {
             <Form.Message match="valueMissing">
               Por favor, insira um e-mail
             </Form.Message>
-            <Form.Message match="typeMismatch">
-              Por favor, insira um e-mail
-            </Form.Message>
+            <Form.Message match="typeMismatch">E-mail inválido</Form.Message>
           </div>
           <Form.Control asChild>
             <input
@@ -119,13 +127,16 @@ export function Review() {
           </Form.Control>
         </Form.Field>
         <Form.Submit asChild>
-          <MainButton className="text-center rounded-full py-3 px-4 text-white">
+          <MainButton
+            className="text-center rounded-full py-3 px-4 text-white bg-[rgb(219, 255, 0)]"
+            disabled={Number(value) < 1}
+          >
             Enviar avaliação
           </MainButton>
         </Form.Submit>
       </FormRoot>
       {/* <Footer /> */}
-    </>
+    </div>
   );
 }
 const ReviewButton = styled.button`
@@ -138,8 +149,8 @@ const ReviewButton = styled.button`
 `;
 
 const FormRoot = styled(Form.Root)`
-  margin: 1.5rem 0;
-  padding: 0 1rem;
+  margin: 2.5rem 0 1.5rem 0;
+  /* padding: 0 1rem; */
   display: flex;
   flex-direction: column;
   gap: 1rem;

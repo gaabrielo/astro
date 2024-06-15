@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import Burger from '../pages/Burger';
 import List from '../components/List';
 import { Menu } from '../components/Menu';
-import { InstagramLogo, List as MenuIcon } from '@phosphor-icons/react';
+import {
+  InstagramLogo,
+  List as MenuIcon,
+  ShoppingBag,
+} from '@phosphor-icons/react';
 
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { Searchbox } from '../components/Searchbox';
@@ -23,7 +27,6 @@ const App = () => {
 
   return (
     <GlobalFilterProvider>
-      {/* <Router> */}
       <GlobalFilterDrawer
         open={isFilterOpen}
         onOpenChange={setIsFilterOpen}
@@ -40,27 +43,9 @@ const App = () => {
 
       <div vaul-drawer-wrapper="" className="overflow-y-hidden">
         <Menu isOpen={isOpen} onClose={setIsOpen} />
-        <header className="w-full text-right px-2 h-20 relative bg-[#111111]">
-          <span className="absolute left-0 right-0 top-0 w-full text-center flex items-center h-20 z-0">
-            <Link to="/" className="mx-auto my-0 mt-2">
-              <img src="/assets/astrologo.svg" alt="Astro Hamburgueria" />
-            </Link>
-          </span>
 
-          <div className="absolute w-full left-0 right-0 top-0 z-10 flex justify-between items-center">
-            <button className="py-8 px-6" onClick={() => setIsOpen(true)}>
-              <span className="text-2xl font-light">
-                <img src="/assets/menu-icon.svg" alt="Abrir Menu" />
-              </span>
-            </button>
+        <Header setIsOpen={setIsOpen} />
 
-            <a href="https://www.instagram.com/burgerastro/" target="_blank">
-              <span className="py-8 px-6 block">
-                <InstagramLogo size="24" color="white" weight="thin" />
-              </span>
-            </a>
-          </div>
-        </header>
         <div className="h-[calc(100vh-5rem)] overflow-y-auto">
           <Routes>
             <Route path="/:burgerId" element={<Burger />} />
@@ -69,10 +54,10 @@ const App = () => {
               element={<Home onFilter={handleFilter} filters={filters} />}
             />
           </Routes>
+
           <Footer />
         </div>
       </div>
-      {/* </Router> */}
     </GlobalFilterProvider>
   );
 };
@@ -89,5 +74,37 @@ function Home({ onFilter, filters }: any) {
         <List search={search} filters={filters} />
       </main>
     </div>
+  );
+}
+
+function Header({ setIsOpen }: any) {
+  return (
+    <header className="w-full flex px-2 h-20 items-center justify-between bg-[#111111]">
+      <button className="py-8 px-6" onClick={() => setIsOpen(true)}>
+        <span className="text-2xl font-light">
+          <img src="/assets/menu-icon.svg" alt="Abrir Menu" />
+        </span>
+      </button>
+
+      <Link to="/">
+        <img
+          src="/assets/astrologo.svg"
+          alt="Astro Hamburgueria"
+          className="w-20"
+        />
+      </Link>
+
+      <a href="#">
+        <span className="py-3 px-4 block text-xs text-center text-[#616263]">
+          <ShoppingBag
+            size="24"
+            color="white"
+            weight="thin"
+            className="mx-auto"
+          />
+          Pedido
+        </span>
+      </a>
+    </header>
   );
 }

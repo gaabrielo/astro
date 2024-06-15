@@ -61,8 +61,6 @@ export default function BurgerPage() {
         open={isReviewModalOpen}
         onOpenChange={setIsReviewModalOpen}
         onCancel={() => {}}
-        dismissible={false}
-        h="100%"
       >
         <Review />
       </Drawer>
@@ -98,17 +96,17 @@ export default function BurgerPage() {
             />
           </div>
           <Actions>
-            <button className="w-full py-4 bg-white text-black font-medium max-h-14 rounded-full">
-              FAZER PEDIDO
+            <button className="w-full py-3 text-base bg-white text-black font-medium max-h-14 rounded-lg">
+              Adicionar ao Pedido
             </button>
-            <a
+            {/* <a
               href="https://www.ifood.com.br/delivery/curitiba-pr/astro-burger-centro/"
               target="_blank"
               className="w-full bg-[#F51038] font-medium flex items-center justify-center gap-2 py-4 max-h-14 rounded-full"
             >
               <span className="text-white">Comprar com</span>
               <img src="./assets/ifood-logo.svg" alt="iFood" />
-            </a>
+            </a> */}
           </Actions>
 
           {burgerData?.description && (
