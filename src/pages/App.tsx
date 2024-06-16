@@ -17,9 +17,10 @@ import { GlobalFilterProvider } from '../contexts/GlobalFilterContext';
 import { Footer } from '../components/Footer';
 
 const App = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [filters, setFilters] = useState<any>({});
+  const [searchTerm, setSearchTerm] = useState();
 
   function handleFilter() {
     setIsFilterOpen(true);
@@ -42,16 +43,20 @@ const App = () => {
       </GlobalFilterDrawer>
 
       <div vaul-drawer-wrapper="" className="overflow-y-hidden">
-        <Menu isOpen={isOpen} onClose={setIsOpen} />
+        <Menu isOpen={isMenuOpen} onClose={setIsMenuOpen} />
 
-        <Header setIsOpen={setIsOpen} />
+        <Header
+          setIsMenuOpen={setIsMenuOpen}
+          setSearch={setSearchTerm}
+          onFilter={handleFilter}
+        />
 
         <div className="h-[calc(100vh-5rem)] overflow-y-auto">
           <Routes>
             <Route path="/:burgerId" element={<Burger />} />
             <Route
               path="/"
-              element={<Home onFilter={handleFilter} filters={filters} />}
+              element={<Home filters={filters} searchTerm={searchTerm} />}
             />
           </Routes>
 
@@ -64,8 +69,8 @@ const App = () => {
 
 export default App;
 
-function Home({ onFilter, filters }: any) {
-  const [search, setSearch] = useState();
+function Home({ filters, searchTerm }: any) {
+  // const [search, setSearch] = useState();
 
   return (
     <div className="w-full relative">
@@ -74,18 +79,16 @@ function Home({ onFilter, filters }: any) {
           <Searchbox onSearchTermChange={setSearch} onFilter={onFilter} />
         </div> */}
 
-        <List search={search} filters={filters} />
+        <List search={searchTerm} filters={filters} />
       </main>
     </div>
   );
 }
 
-function Header({ setIsOpen }: any) {
-  const [search, setSearch] = useState();
-
+function Header({ setIsMenuOpen, onFilter, setSearch }: any) {
   return (
     <header className="w-full flex px-4 gap-3 h-20 items-center bg-[#111111]">
-      {/* <button className="py-6 px-4" onClick={() => setIsOpen(true)}>
+      {/* <button className="py-6 px-4" onClick={() => setIsMenuOpen(true)}>
         <span className="text-2xl font-light">
           <img src="/assets/menu-icon.svg" alt="Abrir Menu" />
         </span>
@@ -99,7 +102,7 @@ function Header({ setIsOpen }: any) {
         />
       </Link> */}
       <div className="flex-1">
-        <Searchbox onSearchTermChange={setSearch} onFilter={() => {}} />
+        <Searchbox onSearchTermChange={setSearch} onFilter={onFilter} />
       </div>
 
       <button>

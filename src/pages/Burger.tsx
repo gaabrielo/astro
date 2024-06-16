@@ -96,7 +96,7 @@ export default function BurgerPage() {
             />
           </div>
           <Actions>
-            <button className="w-full py-3 text-base bg-white text-black font-medium max-h-14 rounded-lg">
+            <button className="w-full py-3 text-base bg-white text-black font-medium max-h-14 rounded-2xl">
               Adicionar ao Pedido
             </button>
             {/* <a
@@ -110,7 +110,7 @@ export default function BurgerPage() {
           </Actions>
 
           {burgerData?.description && (
-            <div className="px-6 py-4 bg-[#202020] text-[#D9D9D9] rounded-[1.25rem] mx-4 mt-8">
+            <div className="px-6 py-4 bg-[#171717] text-[#D9D9D9] rounded-[1.25rem] mx-4 mt-8">
               <h2 className="mb-4 uppercase text-sm text-[#616263] font-semibold flex items-center gap-2">
                 <Hamburger weight="fill" size={24} />
                 Notas da Oficina

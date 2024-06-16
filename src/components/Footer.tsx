@@ -1,6 +1,6 @@
 export function Footer() {
   return (
-    <footer className="text-sm py-10 border-t-zinc-800 border-t mt-10 text-center">
+    <footer className="text-sm pt-10 pb-20 border-t-zinc-800 border-t mt-10 text-center">
       <div className="w-full max-w-lg text-left mx-auto px-4 flex flex-col gap-4">
         <div>
           <h2 className="uppercase text-sm text-zinc-600 font-semibold mb-1">
