@@ -19,34 +19,38 @@ export function Review() {
 
   return (
     <div className="mx-4">
-      <ToggleGroup.Root
-        type="single"
-        aria-label="Ranking"
-        onValueChange={handleSelect}
-        className="flex gap-4 mt-2"
-      >
-        <>
-          {[...Array(Number(value))].map((_, starred) => (
-            <ToggleGroup.Item
-              value={starred + 1 + ''}
-              className="text-[#CCA000] hover:opacity-80"
-            >
-              <Star weight="fill" size={38} />
-            </ToggleGroup.Item>
-          ))}
-          {[...Array(5 - Number(value))].map((_, idx) => (
-            <ToggleGroup.Item
-              value={Number(value) + idx + 1 + ''}
-              className="text-zinc-500 hover:text-[#CCA000] transition-all"
-            >
-              <Star weight="light" size={38} />
-            </ToggleGroup.Item>
-          ))}
-        </>
-      </ToggleGroup.Root>
+      <div className="flex items-center gap-6 text-sm justify-center">
+        <span className="text-gray-50">Não gostei</span>
+        <ToggleGroup.Root
+          type="single"
+          aria-label="Ranking"
+          onValueChange={handleSelect}
+          className="flex gap-3 justify-center"
+        >
+          <>
+            {[...Array(Number(value))].map((_, starred) => (
+              <ToggleGroup.Item
+                value={starred + 1 + ''}
+                className="text-[#CCA000] hover:opacity-80"
+              >
+                <Star weight="fill" size={38} />
+              </ToggleGroup.Item>
+            ))}
+            {[...Array(5 - Number(value))].map((_, idx) => (
+              <ToggleGroup.Item
+                value={Number(value) + idx + 1 + ''}
+                className="text-zinc-500 hover:text-[#CCA000] transition-all"
+              >
+                <Star weight="light" size={38} />
+              </ToggleGroup.Item>
+            ))}
+          </>
+        </ToggleGroup.Root>
+        <span className="text-gray-50">Excelente</span>
+      </div>
 
       <FormRoot onSubmit={(val) => console.log(val)}>
-        <Form.Field name="rank">
+        <Form.Field name="rank" className="sr-only">
           <Form.Control asChild>
             <input
               ref={rankRef}
@@ -55,7 +59,7 @@ export function Review() {
               max={5}
               min={1}
               defaultValue={value}
-              hidden
+              // hidden
               required
             />
           </Form.Control>
@@ -108,7 +112,7 @@ export function Review() {
             <Form.Label className="mb-1">Mensagem (opcional)</Form.Label>
           </div>
           <Form.Control asChild>
-            <textarea className="w-full min-h-[5rem] p-3 rounded-md" />
+            <textarea className="w-full min-h-[5rem] p-3 rounded-md overflow-y-auto" />
           </Form.Control>
         </Form.Field>
         <Form.Submit asChild>

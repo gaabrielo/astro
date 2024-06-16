@@ -51,7 +51,7 @@ const App = () => {
           onFilter={handleFilter}
         />
 
-        <div className="h-[calc(100vh-5rem)] overflow-y-auto">
+        <div className="h-[calc(100vh-5rem)] overflow-y-auto relative">
           <Routes>
             <Route path="/:burgerId" element={<Burger />} />
             <Route
@@ -74,7 +74,7 @@ function Home({ filters, searchTerm }: any) {
 
   return (
     <div className="w-full relative">
-      <main className="block w-full max-w-lg mx-auto my-0 bg-[#111111]">
+      <main className="block w-full max-w-lg mx-auto my-0 bg-background">
         {/* <div className="w-full px-4 max-w-lg">
           <Searchbox onSearchTermChange={setSearch} onFilter={onFilter} />
         </div> */}
@@ -87,7 +87,7 @@ function Home({ filters, searchTerm }: any) {
 
 function Header({ setIsMenuOpen, onFilter, setSearch }: any) {
   return (
-    <header className="w-full flex px-4 gap-3 h-20 items-center bg-[#111111]">
+    <header className="w-full flex px-4 gap-3 h-20 items-center bg-background">
       {/* <button className="py-6 px-4" onClick={() => setIsMenuOpen(true)}>
         <span className="text-2xl font-light">
           <img src="/assets/menu-icon.svg" alt="Abrir Menu" />

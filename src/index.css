@@ -11,7 +11,7 @@
 
 body,
 html {
-  background: #111111;
+  background-color: #0f0f0f !important;
   /* background: radial-gradient(
     circle at 24.1% 68.8%,
     rgb(20, 20, 20) 0%,

@@ -18,14 +18,14 @@ export function GlobalFilterDrawer({
           //     'radial-gradient(circle at 24.1% 68.8%, rgb(25, 25, 25) 0%, rgb(0, 0, 0) 99.4%)',
           // }}
         >
-          <div className="py-4 rounded-t-[10px] flex-1 pb-0 overflow-y-auto w-full max-w-lg mx-auto mt-10 bg-[#111111]">
-            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-zinc-800" />
-            <VaulDrawer.Close
+          <div className="py-2 rounded-t-[10px] flex-1 pb-0 overflow-y-auto w-full max-w-lg mx-auto mt-10 bg-[#111111]">
+            <div className="mx-auto w-12 h-1 flex-shrink-0 rounded-full bg-zinc-800 mb-6" />
+            {/* <VaulDrawer.Close
               className="flex m-0 mr-0 ml-auto px-4 py-2"
               onClick={onCancel}
             >
               <span className="text-red-600 text-sm text-[18px]">Cancelar</span>
-            </VaulDrawer.Close>
+            </VaulDrawer.Close> */}
             {children}
           </div>
         </VaulDrawer.Content>
