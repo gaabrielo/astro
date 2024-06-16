@@ -92,8 +92,9 @@ function List({ search, filters }: ListProps) {
       <ul className="flex flex-col gap-4 text-white">
         {
           items &&
-            ['smash', 'burger', 'acc'].map((bgType) => {
-              const burger = items[bgType] ?? [];
+            ['smash', 'burger', 'acc'].map((bgType: any) => {
+              // @ts-ignore
+              const burger: any = items[bgType] ?? [];
 
               return (
                 <li key={bgType}>
