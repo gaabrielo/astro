@@ -19,7 +19,7 @@ import { Footer } from '../components/Footer';
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [filters, setFilters] = useState<any>({});
+  const [filters, setFilters] = useState<any>({ view: 'list' });
   const [searchTerm, setSearchTerm] = useState();
 
   function handleFilter() {
@@ -43,7 +43,7 @@ const App = () => {
       </GlobalFilterDrawer>
 
       <div vaul-drawer-wrapper="" className="overflow-y-hidden">
-        <Menu isOpen={isMenuOpen} onClose={setIsMenuOpen} />
+        {/* <Menu isOpen={isMenuOpen} onClose={setIsMenuOpen} /> */}
 
         <Header
           setIsMenuOpen={setIsMenuOpen}

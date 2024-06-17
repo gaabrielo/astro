@@ -60,7 +60,7 @@ export default function BurgerPage() {
       <div className="w-full max-w-lg mx-auto fixed top-auto left-0 right-0 z-10">
         <button
           type="button"
-          className="rounded-full p-2 pl-1 w-fit top-10 left-0 z-10"
+          className="rounded-full p-3 pl-2 w-fit top-10 left-0 z-10"
           onClick={handleBack}
         >
           <ArrowLeft
@@ -114,8 +114,8 @@ export default function BurgerPage() {
 
               {burgerData?.description && (
                 <div className="px-6 py-4 bg-[#171717] text-[#D9D9D9] rounded-[1.25rem] mx-4 mt-8">
-                  <h2 className="mb-4 uppercase text-sm text-[#616263] font-semibold flex items-center gap-2">
-                    <Hamburger weight="fill" size={24} />
+                  <h2 className="mb-4 uppercase text-2xl font-medium font-passion-one text-[#616263] flex items-center gap-2">
+                    <Hamburger weight="fill" size={28} />
                     Notas da Oficina
                   </h2>
                   <span>{burgerData.description}</span>

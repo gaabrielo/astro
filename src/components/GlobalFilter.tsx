@@ -2,7 +2,9 @@ import {
   ArrowDown,
   ArrowUp,
   Hamburger,
+  List,
   OrangeSlice,
+  SquaresFour,
   Star,
 } from '@phosphor-icons/react';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
@@ -46,6 +48,22 @@ const filters = [
       },
     ],
   },
+  {
+    type: 'view',
+    label: 'Visualizar',
+    values: [
+      {
+        label: 'Lista',
+        _id: 'list',
+        icon: <List weight="thin" color="white" size={24} />,
+      },
+      {
+        label: 'Grid',
+        _id: 'grid',
+        icon: <SquaresFour weight="thin" color="white" size={24} />,
+      },
+    ],
+  },
   // {
   //   type: 'tags',
   //   label: null,
@@ -82,6 +100,10 @@ export function GlobalFilter({ defaultValue, onFilter }: any) {
   const [value, setValue] = useState<any>(defaultValue || {});
 
   const handleSelect = (v: string, fType: string) => {
+    // console.log('🚀 ~ handleSelect ~ fType:', fType);
+    // console.log('🚀 ~ handleSelect ~ v:', v);
+
+    if (fType == 'view' && !v) return;
     setValue((prev: any) => ({
       ...prev,
       [fType]: v,
@@ -121,7 +143,8 @@ export function GlobalFilter({ defaultValue, onFilter }: any) {
 
         return (
           <div className="mb-6" key={type}>
-            {label && <h1 className="ml-4">{label}</h1>}
+            {label && <h1 className="ml-4 uppercase font-semibold">{label}</h1>}
+
             <ToggleGroup.Root
               className="flex flex-col"
               type="single"

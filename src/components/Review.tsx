@@ -19,8 +19,8 @@ export function Review() {
 
   return (
     <div className="mx-4">
-      <div className="flex items-center gap-6 text-sm justify-center">
-        <span className="text-gray-50">Não gostei</span>
+      <div className="flex items-end gap-3 text-xs justify-center">
+        <span className="text-neutral-300">Não gostei</span>
         <ToggleGroup.Root
           type="single"
           aria-label="Ranking"
@@ -33,7 +33,7 @@ export function Review() {
                 value={starred + 1 + ''}
                 className="text-[#CCA000] hover:opacity-80"
               >
-                <Star weight="fill" size={38} />
+                <Star weight="fill" size={36} />
               </ToggleGroup.Item>
             ))}
             {[...Array(5 - Number(value))].map((_, idx) => (
@@ -41,12 +41,12 @@ export function Review() {
                 value={Number(value) + idx + 1 + ''}
                 className="text-zinc-500 hover:text-[#CCA000] transition-all"
               >
-                <Star weight="light" size={38} />
+                <Star weight="light" size={36} />
               </ToggleGroup.Item>
             ))}
           </>
         </ToggleGroup.Root>
-        <span className="text-gray-50">Excelente</span>
+        <span className="text-neutral-300">Excelente</span>
       </div>
 
       <FormRoot onSubmit={(val) => console.log(val)}>
@@ -116,12 +116,15 @@ export function Review() {
           </Form.Control>
         </Form.Field>
         <Form.Submit asChild>
-          <MainButton
+          {/* <MainButton
             className="text-center rounded-full py-3 px-4 text-white bg-[rgb(219, 255, 0)]"
             disabled={Number(value) < 1}
           >
             Enviar avaliação
-          </MainButton>
+          </MainButton> */}
+          <button className="w-full py-3 text-base bg-white text-black font-medium max-h-14 rounded-2xl">
+            Enviar avaliação
+          </button>
         </Form.Submit>
       </FormRoot>
       {/* <Footer /> */}

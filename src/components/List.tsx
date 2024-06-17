@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 import { supabase } from '../supabase';
 import { Link } from 'react-router-dom';
 import { CaretRight, ShoppingBag } from '@phosphor-icons/react';
@@ -29,11 +28,11 @@ interface ListProps {
   filters?: any;
 }
 
-function List({ search, filters }: ListProps) {
-  console.log('🚀 ~ file: List.tsx:32 ~ List ~ search:', search);
+export default function List({ search, filters }: ListProps) {
+  // console.log('🚀 ~ file: List.tsx:32 ~ List ~ search:', search);
   console.log('🚀 ~ file: List.tsx:31 ~ List ~ filters:', filters);
   const [items, setItems] = useState<BurgerProps>();
-  console.log('🚀 ~ List ~ items:', items);
+  // console.log('🚀 ~ List ~ items:', items);
 
   const fetchData = async () => {
     let data: any;
@@ -96,68 +95,72 @@ function List({ search, filters }: ListProps) {
               // @ts-ignore
               const burger: any = items[bgType] ?? [];
 
+              if (burger.length === 0) return <></>;
+
               return (
                 <li key={bgType}>
-                  <h1 className="text-4xl uppercase font-black px-4 mt-6">
+                  <h1 className="text-4xl uppercase px-4 mt-6 font-medium font-passion-one">
                     {/* @ts-ignore */}
                     {burgerType[bgType]}{' '}
                     <strong className="text-[#616263] font-normal">
                       {burger.length}
                     </strong>
                   </h1>
-                  {/* @ts-ignore */}
-                  {burger.map((bgr) => (
-                    <li
-                      key={bgr.id}
-                      className="text-center text-[#EAEBED] font-medium text-xl flex flex-col gap-1 mx-4 mt-4 overflow-hidden rounded-[1.25rem] bg-[#161616] w-['calc(100vw-2rem)']"
-                    >
-                      <Link to={`/${bgr.id}`}>
-                        <img
-                          src={bgr.image}
-                          alt={bgr.name}
-                          className="object-cover h-60 w-full"
-                        />
+                  <ul>
+                    {/* @ts-ignore */}
+                    {burger.map((bgr) => (
+                      <li
+                        key={bgr.id}
+                        className="text-center text-[#EAEBED] font-medium text-xl flex flex-col gap-1 mx-4 mt-4 overflow-hidden rounded-[1.25rem] bg-[#161616] w-['calc(100vw-2rem)']"
+                      >
+                        <Link to={`/${bgr.id}`}>
+                          <img
+                            src={bgr.image}
+                            alt={bgr.name}
+                            className="object-cover h-60 w-full"
+                          />
 
-                        <div className="w-full flex justify-between items-center px-4 py-3 hover:cursor-pointer">
-                          <div className="flex flex-col text-left">
-                            {bgType !== 'acc' && (
-                              <span className="leading-4 text-sm font-bold text-[#8A8A8A]">
-                                {bgType !== 'smash' ? 'GRELHADO' : 'SMASH'}
+                          <div className="w-full flex justify-between items-center px-4 py-3 hover:cursor-pointer">
+                            <div className="flex flex-col text-left">
+                              {bgType !== 'acc' && (
+                                <span className="leading-4 text-sm font-bold text-[#8A8A8A]">
+                                  {bgType !== 'smash' ? 'GRELHADO' : 'SMASH'}
+                                </span>
+                              )}
+
+                              <h1 className="font-medium text-2xl uppercase leading-7 font-passion-one">
+                                {bgr.name}
+                              </h1>
+                              <h1 className="font-normal leading-4 mt-3">
+                                <strong className="text-sm font-normal">
+                                  R${' '}
+                                </strong>
+                                {bgr.price}
+                              </h1>
+                            </div>
+
+                            {/* <CaretRight weight="thin" color="#EAEBED" size={20} /> */}
+
+                            <Button
+                              className="px-4 py-2 rounded-full text-sm flex items-center gap-1 text-[#EAEBED] z-20"
+                              // onClick={(e) => {
+
+                              // }}
+                            >
+                              <ShoppingBag
+                                className="w-5 h-5"
+                                weight="thin"
+                                color="#D9D9D9"
+                              />
+                              <span className="font-normal text-white">
+                                Adicionar
                               </span>
-                            )}
-
-                            <h1 className="font-bold text-lg uppercase leading-6">
-                              {bgr.name}
-                            </h1>
-                            <h1 className="font-normal leading-4 mt-2">
-                              <strong className="text-sm font-normal">
-                                R${' '}
-                              </strong>
-                              {bgr.price}
-                            </h1>
+                            </Button>
                           </div>
-
-                          {/* <CaretRight weight="thin" color="#EAEBED" size={20} /> */}
-
-                          <Button
-                            className="px-4 py-2 rounded-full text-sm flex items-center gap-1 text-[#EAEBED] z-20"
-                            // onClick={(e) => {
-
-                            // }}
-                          >
-                            <ShoppingBag
-                              className="w-5 h-5"
-                              weight="thin"
-                              color="#D9D9D9"
-                            />
-                            <span className="font-normal text-white">
-                              Adicionar
-                            </span>
-                          </Button>
-                        </div>
-                      </Link>
-                    </li>
-                  ))}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 </li>
               );
             })
@@ -165,17 +168,6 @@ function List({ search, filters }: ListProps) {
           // Object.entries(items).map(([bgType, burger]) => )
         }
       </ul>
-
-      {/* <AnimatePresence>
-        {selectedId && (
-          <motion.div layoutId={selectedId} className="bg-red-500">
-            <motion.h2>{selectedItem.title}</motion.h2>
-            <motion.button onClick={() => setSelectedId(null)} />
-          </motion.div>
-        )}
-      </AnimatePresence> */}
     </div>
   );
 }
-
-export default List;
