@@ -87,7 +87,7 @@ function Home({ filters, searchTerm }: any) {
 
 function Header({ setIsMenuOpen, onFilter, setSearch }: any) {
   return (
-    <header className="w-full flex px-4 gap-3 h-20 items-center bg-background">
+    <header className="w-full flex px-4 gap-3 h-16 items-center bg-background">
       {/* <button className="py-6 px-4" onClick={() => setIsMenuOpen(true)}>
         <span className="text-2xl font-light">
           <img src="/assets/menu-icon.svg" alt="Abrir Menu" />
