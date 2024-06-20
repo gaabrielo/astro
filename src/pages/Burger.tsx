@@ -98,6 +98,19 @@ export default function BurgerPage() {
                   onClickReview={() => setIsReviewModalOpen(true)}
                 />
               </div>
+
+              <div className="flex items-baseline mx-4 justify-between text-xl">
+                {/* <span>Preço</span> */}
+                <h2 className="mt-8 uppercase text-sm text-[#616263] font-semibold">
+                  Preço
+                </h2>
+
+                <h1 className="text-3xl text-[#EAEBED] mb-4 text-right">
+                  <strong className="text-xl font-normal">R$ </strong>
+                  {burgerData?.price ?? ''}
+                </h1>
+              </div>
+
               <Actions>
                 <button className="w-full py-3 text-base bg-white text-black font-medium max-h-14 rounded-2xl">
                   Adicionar ao Pedido

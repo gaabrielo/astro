@@ -58,10 +58,10 @@ export function Description({ burger, onClickReview }: any) {
         </ReviewButton>
       </div>
 
-      <h1 className="text-4xl text-[#EAEBED] mt-3">
+      {/* <h1 className="text-4xl text-[#EAEBED] mt-3">
         <strong className="text-xl font-normal">R$ </strong>
         {burger.price}
-      </h1>
+      </h1> */}
 
       <h2 className="mt-8 uppercase text-sm text-[#616263] font-semibold">
         Ingredientes
