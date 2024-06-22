@@ -15,6 +15,7 @@ import { GlobalFilterDrawer } from '../components/GlobalFilterDrawer';
 import { GlobalFilter } from '../components/GlobalFilter';
 import { GlobalFilterProvider } from '../contexts/GlobalFilterContext';
 import { Footer } from '../components/Footer';
+import { SearchboxNew } from '../components/Searchbox/SearchboxNew';
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -87,13 +88,7 @@ function Home({ filters, searchTerm }: any) {
 
 function Header({ setIsMenuOpen, onFilter, setSearch }: any) {
   return (
-    <header className="w-full flex px-4 gap-3 h-16 items-center bg-background">
-      {/* <button className="py-6 px-4" onClick={() => setIsMenuOpen(true)}>
-        <span className="text-2xl font-light">
-          <img src="/assets/menu-icon.svg" alt="Abrir Menu" />
-        </span>
-      </button> */}
-
+    <header className="w-full flex px-4 gap-0 h-16 items-center bg-background justify-end">
       {/* <Link to="/">
         <img
           src="/assets/astrologo.svg"
@@ -101,11 +96,49 @@ function Header({ setIsMenuOpen, onFilter, setSearch }: any) {
           className="w-20"
         />
       </Link> */}
-      <div className="flex-1">
+
+      {/* <div className="flex-1">
         <Searchbox onSearchTermChange={setSearch} onFilter={onFilter} />
+      </div> */}
+
+      <img
+        src="./assets/astro_white_bg.png"
+        alt="Astro burger Logo"
+        className="w-12 h-12 rounded-full flex-shrink"
+      />
+
+      <div className="text-xs flex flex-col ml-4 pr-4 gap-1 mr-auto overflow-visible">
+        <div className="flex items-center gap-2 overflow-visible">
+          <div className="w-2.5 h-2.5 overflow-visible relative">
+            <div className="w-2.5 h-2.5 bg-green-500 rounded-full absolute" />
+            <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-ping absolute" />
+          </div>
+
+          <span>Aberto agora</span>
+        </div>
+        <span className="text-neutral-400">~40-60 minutos</span>
       </div>
 
-      <button>
+      {/* <button
+        className="py-0 px-4 mr-auto ml-0"
+        onClick={() => setIsMenuOpen(true)}
+      >
+        <span className="text-2xl font-light">
+          <img src="/assets/menu-icon.svg" alt="Abrir Menu" />
+        </span>
+        <MenuIcon weight="light" size={24} />
+      </button> */}
+
+      <SearchboxNew />
+
+      <button className="py-0 px-4" onClick={() => setIsMenuOpen(true)}>
+        {/* <span className="text-2xl font-light">
+          <img src="/assets/menu-icon.svg" alt="Abrir Menu" />
+        </span> */}
+        <MenuIcon weight="light" size={24} />
+      </button>
+
+      {/* <button>
         <span className="py-4 block text-xs text-center text-[#616263]">
           <ShoppingBag
             size="24"
@@ -115,7 +148,7 @@ function Header({ setIsMenuOpen, onFilter, setSearch }: any) {
           />
           Pedido
         </span>
-      </button>
+      </button> */}
     </header>
   );
 }
