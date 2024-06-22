@@ -131,12 +131,12 @@ function Header({ setIsMenuOpen, onFilter, setSearch }: any) {
 
       <SearchboxNew />
 
-      <button className="py-0 px-4" onClick={() => setIsMenuOpen(true)}>
-        {/* <span className="text-2xl font-light">
+      {/* <button className="py-0 px-4" onClick={() => setIsMenuOpen(true)}>
+        <span className="text-2xl font-light">
           <img src="/assets/menu-icon.svg" alt="Abrir Menu" />
-        </span> */}
+        </span>
         <MenuIcon weight="light" size={24} />
-      </button>
+      </button> */}
 
       {/* <button>
         <span className="py-4 block text-xs text-center text-[#616263]">
