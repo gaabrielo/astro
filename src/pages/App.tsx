@@ -16,6 +16,7 @@ import { GlobalFilter } from '../components/GlobalFilter';
 import { GlobalFilterProvider } from '../contexts/GlobalFilterContext';
 import { Footer } from '../components/Footer';
 import { SearchboxNew } from '../components/Searchbox/SearchboxNew';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -87,6 +88,8 @@ function Home({ filters, searchTerm }: any) {
 }
 
 function Header({ setIsMenuOpen, onFilter, setSearch }: any) {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   return (
     <header className="w-full flex px-4 gap-0 h-16 items-center bg-background justify-end">
       {/* <Link to="/">
@@ -107,17 +110,27 @@ function Header({ setIsMenuOpen, onFilter, setSearch }: any) {
         className="w-12 h-12 rounded-full flex-shrink"
       />
 
-      <div className="text-xs flex flex-col ml-4 pr-4 gap-1 mr-auto overflow-visible">
-        <div className="flex items-center gap-2 overflow-visible">
-          <div className="w-2.5 h-2.5 overflow-visible relative">
-            <div className="w-2.5 h-2.5 bg-green-500 rounded-full absolute" />
-            <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-ping absolute" />
-          </div>
+      <AnimatePresence>
+        {!isSearchOpen && (
+          <motion.div
+            className="text-xs flex flex-col ml-4 pr-4 gap-1 mr-auto overflow-visible"
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            initial={{ y: -25, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -25, opacity: 0 }}
+          >
+            <div className="flex items-center gap-2 overflow-visible">
+              <div className="w-2.5 h-2.5 overflow-visible relative">
+                <div className="w-2.5 h-2.5 bg-green-500 rounded-full absolute" />
+                <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-ping absolute" />
+              </div>
 
-          <span>Aberto agora</span>
-        </div>
-        <span className="text-neutral-400">~40-60 minutos</span>
-      </div>
+              <span>Aberto agora</span>
+            </div>
+            <span className="text-neutral-400">~40-60 minutos</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* <button
         className="py-0 px-4 mr-auto ml-0"
@@ -129,7 +142,7 @@ function Header({ setIsMenuOpen, onFilter, setSearch }: any) {
         <MenuIcon weight="light" size={24} />
       </button> */}
 
-      <SearchboxNew />
+      <SearchboxNew isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
 
       {/* <button className="py-0 px-4" onClick={() => setIsMenuOpen(true)}>
         <span className="text-2xl font-light">

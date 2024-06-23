@@ -5,9 +5,7 @@ import './styles.scss';
 import { MagnifyingGlass } from '@phosphor-icons/react';
 import styled from 'styled-components';
 
-export function SearchboxNew() {
-  const [isOpen, setIsOpen] = useState(false);
-
+export function SearchboxNew({ isOpen = false, setIsOpen = (): void => {} }) {
   const spring = {
     type: 'spring',
     stiffness: 700,
