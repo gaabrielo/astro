@@ -48,22 +48,22 @@ const filters = [
       },
     ],
   },
-  {
-    type: 'view',
-    label: 'Visualizar',
-    values: [
-      {
-        label: 'Lista',
-        _id: 'list',
-        icon: <List weight="thin" color="white" size={24} />,
-      },
-      {
-        label: 'Grid',
-        _id: 'grid',
-        icon: <SquaresFour weight="thin" color="white" size={24} />,
-      },
-    ],
-  },
+  // {
+  //   type: 'view',
+  //   label: 'Visualizar',
+  //   values: [
+  //     {
+  //       label: 'Lista',
+  //       _id: 'list',
+  //       icon: <List weight="thin" color="white" size={24} />,
+  //     },
+  //     {
+  //       label: 'Grid',
+  //       _id: 'grid',
+  //       icon: <SquaresFour weight="thin" color="white" size={24} />,
+  //     },
+  //   ],
+  // },
   // {
   //   type: 'tags',
   //   label: null,

@@ -8,7 +8,7 @@ interface MenuProps {
   onClose: any;
 }
 
-export function Menu({ isOpen, onClose }: MenuProps) {
+export function ContextMenu({ isOpen, onClose }: MenuProps) {
   const [open, setOpen] = useState(false);
 
   // const isOpen = () => {

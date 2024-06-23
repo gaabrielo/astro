@@ -100,7 +100,6 @@ export default function BurgerPage() {
               </div>
 
               <div className="flex items-baseline mx-4 justify-between text-xl">
-                {/* <span>Preço</span> */}
                 <h2 className="mt-8 uppercase text-sm text-[#616263] font-semibold">
                   Preço
                 </h2>

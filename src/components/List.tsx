@@ -29,10 +29,8 @@ interface ListProps {
 }
 
 export default function List({ search, filters }: ListProps) {
-  // console.log('🚀 ~ file: List.tsx:32 ~ List ~ search:', search);
   console.log('🚀 ~ file: List.tsx:31 ~ List ~ filters:', filters);
   const [items, setItems] = useState<BurgerProps>();
-  // console.log('🚀 ~ List ~ items:', items);
 
   const fetchData = async () => {
     let data: any;

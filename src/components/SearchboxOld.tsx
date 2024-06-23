@@ -13,7 +13,7 @@ const FilterButton = styled.button`
   font-family: 'Poppins';
 `;
 
-export function Searchbox({ onSearchTermChange, onFilter }: any) {
+export function SearchboxOld({ onSearchTermChange, onFilter }: any) {
   const [search, setSearch] = useState('');
   const inputSearchRef = useRef(null);
 
