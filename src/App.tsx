@@ -14,7 +14,8 @@ import { Menu } from './pages/Menu';
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [filters, setFilters] = useState<any>({ view: 'list' });
+  // const [filters, setFilters] = useState<any>({ view: 'list' });
+  const [filters, setFilters] = useState<any>({});
   const [searchTerm, setSearchTerm] = useState();
 
   function handleFilter() {

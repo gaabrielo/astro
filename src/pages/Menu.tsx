@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 import List from '../components/List';
-import { Funnel, ShoppingBag } from '@phosphor-icons/react';
+import { CaretRight, Funnel, ShoppingBag } from '@phosphor-icons/react';
 import { useEffect, useState } from 'react';
 import { supabase } from '../supabase';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/Button';
-import { GalleryVertical } from 'lucide-react';
+import {
+  AlignJustify,
+  ChevronRightIcon,
+  GalleryVertical,
+  LayoutGrid,
+} from 'lucide-react';
 
 interface BurgerProps {
   image: string;
@@ -13,6 +18,7 @@ interface BurgerProps {
   type: 'smash' | 'burger' | 'acc';
   name: string;
   price: string;
+  ingredients: string;
 }
 
 const burgerType = {
@@ -21,8 +27,17 @@ const burgerType = {
   acc: 'ACOMPANHAMENTO',
 };
 
+const listType = {
+  list: <AlignJustify strokeWidth={1} size={20} />,
+  card: <GalleryVertical strokeWidth={1} size={20} />,
+  grid: <LayoutGrid strokeWidth={1} size={20} />,
+};
+
 export function Menu({ filters, searchTerm: search, onFilter }: any) {
+  console.log('🚀 ~ Menu ~ filters:', filters);
   const [items, setItems] = useState<BurgerProps[]>();
+  const [listTypeSelected, setListTypeSelected] = useState('list');
+  console.log('🚀 ~ Menu ~ listTypeSelected:', listTypeSelected);
   console.log('🚀 ~ Menu ~ items:', items);
 
   const fetchData = async () => {
@@ -61,14 +76,21 @@ export function Menu({ filters, searchTerm: search, onFilter }: any) {
       data = await supabase.from('items').select();
     }
 
-    //  const formattedItems = data?.data.reduce((acc: any, mitem: BurgerProps) => {
-    //    if (!acc[mitem.type]) {
-    //      acc[mitem.type] = [];
-    //    }
-    //    acc[mitem.type].push(mitem);
-    //    return acc;
-    //  }, {});
+    if (!Object.values(filters)?.some((fValue) => fValue !== '')) {
+      const formattedItems = Object.keys(burgerType).reduce(
+        (acc: any, bgType: string) => {
+          acc.push(data.data.filter((bg: BurgerProps) => bg.type === bgType));
 
+          return acc;
+        },
+        []
+      );
+
+      setItems(formattedItems.flat());
+      return;
+    }
+
+    console.log('🚀 ~ fetchData ~ data:', data);
     setItems(data.data);
   };
 
@@ -76,12 +98,62 @@ export function Menu({ filters, searchTerm: search, onFilter }: any) {
     fetchData();
   }, [search, filters]);
 
+  function getNextViewIndex(): 'list' | 'card' | 'grid' {
+    const currentSelectedIndex =
+      Object.keys(listType).indexOf(listTypeSelected);
+
+    const views = Object.keys(listType);
+
+    if (currentSelectedIndex + 1 >= Object.keys(listType).length) {
+      return views[0] as 'list' | 'card' | 'grid';
+    }
+
+    return views[currentSelectedIndex + 1] as 'list' | 'card' | 'grid';
+  }
+
+  function renderListTypeIcon() {
+    return listType[getNextViewIndex()];
+  }
+
+  function changeViewType() {
+    setListTypeSelected(getNextViewIndex());
+  }
+
+  function renderCurrentViewItem() {
+    switch (listTypeSelected) {
+      case 'card':
+        return (
+          <ul>
+            {items?.map((brg) => (
+              <BgrCard data={brg} />
+            ))}
+          </ul>
+        );
+      case 'grid':
+        return (
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-4 mt-4">
+            {items?.map((brg) => (
+              <BgrSquare data={brg} />
+            ))}
+          </ul>
+        );
+      default:
+        return (
+          <ul>
+            {items?.map((brg) => (
+              <BgrRow data={brg} />
+            ))}
+          </ul>
+        );
+    }
+  }
+
   return (
     <main className="w-full max-w-lg mx-auto my-0 bg-background">
       <header className="mx-4 mt-6 flex items-center gap-2">
         <h1 className="font-passion-one text-4xl">CARDÁPIO</h1>
-        <FilterButton className="mr-0 ml-auto">
-          <GalleryVertical strokeWidth={1} size={20} />
+        <FilterButton className="mr-0 ml-auto" onClick={changeViewType}>
+          {renderListTypeIcon()}
         </FilterButton>
         <FilterButton onClick={onFilter}>
           <Funnel size={20} weight="thin" color="#D9D9D9" className="mr-1" />
@@ -89,26 +161,54 @@ export function Menu({ filters, searchTerm: search, onFilter }: any) {
         </FilterButton>
       </header>
 
-      <ul>
-        {items?.map((bgr) => (
-          <BgrCard data={bgr} />
-        ))}
-      </ul>
+      {renderCurrentViewItem()}
 
       {/* <List search={search} filters={filters} /> */}
     </main>
   );
 }
 
-// function BgrSquare() {
-
-//   return ()
-// }
-
 function BgrRow({ data: bgr }: { data: BurgerProps }) {
   return (
-    <li key={bgr.id} className="bg-[#161616]">
-      <Link to={`/${bgr.id}`}></Link>
+    <li key={bgr.id} className="bg-[#161616] rounded-[1.25rem] mx-4 mt-4 ">
+      <button type="button" className="flex leading-none p-3 gap-3 w-full">
+        <img
+          src={bgr.image}
+          alt={bgr.name}
+          className="aspect-square object-cover w-24 h-24 rounded-2xl"
+        />
+
+        <div className="flex-1">
+          <header className="text-left flex-1 flex">
+            <div>
+              <span className="leading-5 text-sm font-bold text-neutral-500">
+                {burgerType[bgr.type]}
+              </span>
+
+              <h1 className="font-medium text-2xl uppercase leading-7 font-passion-one">
+                {bgr.name}
+              </h1>
+            </div>
+
+            {/* <ChevronRightIcon
+              strokeWidth={1}
+              size={20}
+              className="self-center mx-2"
+            /> */}
+
+            <h1 className="font-normal text-lg leading-5 self-center mr-0 ml-auto text-neutral-400">
+              <strong className="text-sm font-normal">R$ </strong>
+              {bgr.price}
+            </h1>
+          </header>
+
+          {/* <div className="flex text-left w-full gap-2">
+          </div> */}
+          <span className="text-sm text-neutral-500 mt-1.5 flex-1 text-left w-full inline-block">
+            {bgr.ingredients}
+          </span>
+        </div>
+      </button>
     </li>
   );
 }
@@ -132,7 +232,7 @@ function BgrCard({ data: bgr }: { data: BurgerProps }) {
               {burgerType[bgr.type]}
             </span>
 
-            <h1 className="font-medium text-2xl uppercase leading-7 font-passion-one">
+            <h1 className="font-medium text-3xl uppercase leading-7 font-passion-one">
               {bgr.name}
             </h1>
             <h1 className="font-normal leading-4 mt-3">
@@ -141,18 +241,32 @@ function BgrCard({ data: bgr }: { data: BurgerProps }) {
             </h1>
           </div>
 
-          {/* <CaretRight weight="thin" color="#EAEBED" size={20} /> */}
+          <CaretRight weight="thin" color="#EAEBED" size={20} />
 
-          <Button
+          {/* <Button
             className="px-4 py-2 rounded-full text-sm flex items-center gap-1 text-[#EAEBED] z-20"
             // onClick={(e) => {
             // }}
           >
             <ShoppingBag className="w-5 h-5" weight="thin" color="#D9D9D9" />
             <span className="font-normal text-white">Adicionar</span>
-          </Button>
+          </Button> */}
         </div>
       </Link>
+    </li>
+  );
+}
+
+function BgrSquare({ data: bgr }: { data: BurgerProps }) {
+  return (
+    <li>
+      <button>
+        <img
+          src={bgr.image}
+          alt={bgr.name}
+          className="aspect-square object-cover"
+        />
+      </button>
     </li>
   );
 }
