@@ -42,10 +42,12 @@ export function SearchboxNew() {
               className="textInput"
               initial={{
                 opacity: 0,
+                transitionDelay: '0.4s',
               }}
               animate={{ opacity: 1 }}
               exit={{
                 opacity: 0,
+                transitionDelay: '0s',
               }}
             >
               <input
