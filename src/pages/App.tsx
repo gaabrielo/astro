@@ -107,13 +107,13 @@ function Header({ setIsMenuOpen, onFilter, setSearch }: any) {
       <img
         src="./assets/astro_white_bg.png"
         alt="Astro burger Logo"
-        className="w-12 h-12 rounded-full flex-shrink"
+        className="w-12 h-12 rounded-full flex-shrink mr-4"
       />
 
-      <AnimatePresence>
+      <AnimatePresence mode="popLayout">
         {!isSearchOpen && (
           <motion.div
-            className="text-xs flex flex-col ml-4 pr-4 gap-1 mr-auto overflow-visible"
+            className="text-xs flex flex-col pr-4 gap-1 mr-auto overflow-visible"
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             initial={{ y: -25, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}

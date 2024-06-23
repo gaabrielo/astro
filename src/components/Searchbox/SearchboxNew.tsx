@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 
 import './styles.scss';
-import { MagnifyingGlass } from '@phosphor-icons/react';
+import { MagnifyingGlass, X } from '@phosphor-icons/react';
 import styled from 'styled-components';
 
 export function SearchboxNew({
@@ -17,81 +17,90 @@ export function SearchboxNew({
   };
 
   return (
-    <motion.div
-      layout
-      data-isOpen={isOpen}
-      initial={{ borderRadius: 50 }}
-      className="parent"
-      onClick={() => {
-        if (!isOpen) setIsOpen(!isOpen);
-      }}
-      transition={{ duration: 0.5 }}
-    >
-      <div
-        className="magnifyingGlass"
-        // transition={spring}
-        // layout
-      >
-        <MagnifyingGlass size={24} weight="regular" />
-      </div>
+    <>
+      {!isOpen ? (
+        <motion.div
+          layoutId="searchBox"
+          data-isOpen={isOpen}
+          initial={{ borderRadius: 50 }}
+          className="parent"
+          onClick={() => {
+            if (!isOpen) setIsOpen(!isOpen);
+          }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.div layoutId="magnifyingGlass" className="magnifyingGlass">
+            <MagnifyingGlass size={24} weight="regular" />
+          </motion.div>
+        </motion.div>
+      ) : (
+        <motion.div
+          layoutId="searchBox"
+          data-isOpen={isOpen}
+          initial={{ borderRadius: 50 }}
+          className="parent"
+          onClick={() => {
+            if (!isOpen) setIsOpen(!isOpen);
+          }}
+          transition={{ duration: 0.5 }}
+        >
+          <motion.div layoutId="magnifyingGlass" className="magnifyingGlass">
+            <MagnifyingGlass size={24} weight="regular" />
+          </motion.div>
 
-      <AnimatePresence mode="sync">
-        {isOpen && (
-          <>
-            <motion.div
-              transition={{ duration: 0.1 }}
-              className="textInput"
-              initial={{
-                opacity: 0,
-                transitionDelay: '0.4s',
-              }}
-              animate={{ opacity: 1 }}
-              exit={{
-                opacity: 0,
-                transitionDelay: '0s',
-              }}
-            >
-              <input
-                // ref={inputSearchRef}
-                type="text"
-                placeholder="Buscar"
-                className="bg-transparent py-3 placeholder:text-[#616263] text-[#D9D9D9] font-normal ml-2 flex-1"
-                // onChange={debouncedResults}
-              />
+          <motion.form
+            transition={{ duration: 0.1, delay: 0.4 }}
+            className="textInput"
+            initial={{
+              opacity: 0,
+              y: -25,
+            }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{
+              opacity: 0,
+              y: -25,
+            }}
+          >
+            <input
+              // ref={inputSearchRef}
+              autoFocus
+              type="text"
+              placeholder="Buscar"
+              className="bg-transparent placeholder:text-[#616263] text-[#D9D9D9] font-normal flex-1 h-full"
+              // onChange={debouncedResults}
+            />
+          </motion.form>
 
-              <FilterButton
-                className="px-4 py-2 rounded-full flex items-center h-8 self-center group"
-                // onClick={() =>
-                //   search.length > 0 ? handleCleanSearch() : onFilter()
-                // }
-                onClick={() => setIsOpen(false)}
-              >
-                {/* {search.length > 0 ? (
-                  <span className="text-sm text-[#616263]">Cancelar</span>
-                ) : (
-                  <>
-                    <Funnel size={20} weight="thin" color="#D9D9D9" />
-                    <span className="text-sm text-[#616263]">Filtrar</span>
-                  </>
-                )} */}
-                <span className="text-xs transition-all group-hover:text-zinc-300 text-[#616263]">
-                  Cancelar
-                </span>
-              </FilterButton>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
-    </motion.div>
+          <motion.button
+            // className="px-4 py-2 rounded-full flex items-center h-8 self-center group"
+            onClick={() => setIsOpen(false)}
+            type="button"
+            transition={{ duration: 0.1, delay: 0.4 }}
+            className="cancelButton"
+            initial={{
+              opacity: 0,
+              y: -25,
+            }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{
+              opacity: 0,
+              y: -25,
+            }}
+          >
+            <X weight="thin" size="1rem" />
+          </motion.button>
+        </motion.div>
+      )}
+    </>
   );
 }
 
-const FilterButton = styled.button`
-  background: rgba(34, 34, 34, 0.8);
-  box-shadow: inset 0 1px 0 0 hsla(0, 0%, 100%, 0.1);
-  transition: 0.5s;
-  &:hover {
-    box-shadow: inset 0 1px 0 0 hsla(0, 0%, 100%, 0.2);
-  }
-  font-family: 'Poppins';
-`;
+// const FilterButton = styled.button`
+//   background: rgba(34, 34, 34, 0.8);
+//   box-shadow: inset 0 1px 0 0 hsla(0, 0%, 100%, 0.1);
+//   transition: 0.5s;
+//   &:hover {
+//     box-shadow: inset 0 1px 0 0 hsla(0, 0%, 100%, 0.2);
+//   }
+//   font-family: 'Poppins';
+// `;
