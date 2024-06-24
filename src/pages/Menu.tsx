@@ -29,16 +29,13 @@ const burgerType = {
 
 const listType = {
   list: <AlignJustify strokeWidth={1} size={20} />,
-  card: <GalleryVertical strokeWidth={1} size={20} />,
   grid: <LayoutGrid strokeWidth={1} size={20} />,
+  card: <GalleryVertical strokeWidth={1} size={20} />,
 };
 
 export function Menu({ filters, searchTerm: search, onFilter }: any) {
-  console.log('🚀 ~ Menu ~ filters:', filters);
   const [items, setItems] = useState<BurgerProps[]>();
   const [listTypeSelected, setListTypeSelected] = useState('list');
-  console.log('🚀 ~ Menu ~ listTypeSelected:', listTypeSelected);
-  console.log('🚀 ~ Menu ~ items:', items);
 
   const fetchData = async () => {
     let data: any;
@@ -131,7 +128,7 @@ export function Menu({ filters, searchTerm: search, onFilter }: any) {
         );
       case 'grid':
         return (
-          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-4 mt-4">
+          <ul className="grid grid-cols-2 md:grid-cols-3 gap-4 mx-4 mt-4">
             {items?.map((brg) => (
               <BgrSquare data={brg} />
             ))}
