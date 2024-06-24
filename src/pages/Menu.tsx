@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import List from '../components/List';
 import { CaretRight, Funnel, ShoppingBag } from '@phosphor-icons/react';
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { supabase } from '../supabase';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/Button';
@@ -116,7 +116,7 @@ export function Menu({ filters, searchTerm: search, onFilter }: any) {
     setListTypeSelected(getNextViewIndex());
   }
 
-  function renderCurrentViewItem() {
+  function renderCurrentView() {
     switch (listTypeSelected) {
       case 'card':
         return (
@@ -158,17 +158,29 @@ export function Menu({ filters, searchTerm: search, onFilter }: any) {
         </FilterButton>
       </header>
 
-      {renderCurrentViewItem()}
+      {renderCurrentView()}
 
       {/* <List search={search} filters={filters} /> */}
     </main>
   );
 }
 
+function ItemWrapperButton({ children, ...rest }: any) {
+  return (
+    <button
+      type="button"
+      onClick={() => alert('Piceto pôbona calate')}
+      {...rest}
+    >
+      {children}
+    </button>
+  );
+}
+
 function BgrRow({ data: bgr }: { data: BurgerProps }) {
   return (
     <li key={bgr.id} className="bg-[#161616] rounded-[1.25rem] mx-4 mt-4 ">
-      <button type="button" className="flex leading-none p-3 gap-3 w-full">
+      <ItemWrapperButton className="flex leading-none p-3 gap-3 w-full">
         <img
           src={bgr.image}
           alt={bgr.name}
@@ -205,7 +217,7 @@ function BgrRow({ data: bgr }: { data: BurgerProps }) {
             {bgr.ingredients}
           </span>
         </div>
-      </button>
+      </ItemWrapperButton>
     </li>
   );
 }
@@ -216,7 +228,7 @@ function BgrCard({ data: bgr }: { data: BurgerProps }) {
       key={bgr.id}
       className="text-center text-[#EAEBED] font-medium text-xl flex flex-col gap-1 mx-4 mt-4 overflow-hidden rounded-[1.25rem] bg-[#161616] w-['calc(100vw-2rem)']"
     >
-      <Link to={`/${bgr.id}`}>
+      <ItemWrapperButton>
         <img
           src={bgr.image}
           alt={bgr.name}
@@ -249,7 +261,7 @@ function BgrCard({ data: bgr }: { data: BurgerProps }) {
             <span className="font-normal text-white">Adicionar</span>
           </Button> */}
         </div>
-      </Link>
+      </ItemWrapperButton>
     </li>
   );
 }
@@ -257,13 +269,13 @@ function BgrCard({ data: bgr }: { data: BurgerProps }) {
 function BgrSquare({ data: bgr }: { data: BurgerProps }) {
   return (
     <li>
-      <button>
+      <ItemWrapperButton>
         <img
           src={bgr.image}
           alt={bgr.name}
           className="aspect-square object-cover"
         />
-      </button>
+      </ItemWrapperButton>
     </li>
   );
 }
