@@ -1,25 +1,16 @@
 import styled from 'styled-components';
 import List from '../components/List';
-import { CaretRight, Funnel, ShoppingBag } from '@phosphor-icons/react';
-import { ReactNode, useEffect, useState } from 'react';
-import { supabase } from '../supabase';
-import { Link } from 'react-router-dom';
-import { Button } from '../components/Button';
-import {
-  AlignJustify,
-  ChevronRightIcon,
-  GalleryVertical,
-  LayoutGrid,
-} from 'lucide-react';
+import { CaretRight, Funnel } from '@phosphor-icons/react';
+import { useEffect, useState } from 'react';
+// import { supabase } from '../supabase';
+import { AlignJustify, GalleryVertical, LayoutGrid } from 'lucide-react';
+import { GlobalFilterProvider } from '../contexts/GlobalFilterContext';
+import { GlobalFilterDrawer } from '../components/GlobalFilterDrawer';
+import { GlobalFilter } from '../components/GlobalFilter';
+import { Item, fetchMenu } from '../services/items';
+import { redirect, useNavigate } from 'react-router-dom';
 
-interface BurgerProps {
-  image: string;
-  id: number;
-  type: 'smash' | 'burger' | 'acc';
-  name: string;
-  price: string;
-  ingredients: string;
-}
+type BurgerProps = Item;
 
 const burgerType = {
   smash: 'ASTRO SMASH',
@@ -33,67 +24,76 @@ const listType = {
   card: <GalleryVertical strokeWidth={1} size={20} />,
 };
 
-export function Menu({ filters, searchTerm: search, onFilter }: any) {
+export function Menu({ searchTerm: search }: any) {
   const [items, setItems] = useState<BurgerProps[]>();
+  // filters
   const [listTypeSelected, setListTypeSelected] = useState('list');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filters, setFilters] = useState<any>({});
 
-  const fetchData = async () => {
-    let data: any;
+  // const fetchData = async () => {
+  //   let data: any;
 
-    if (search) {
-      data = await supabase
-        .from('items')
-        .select()
-        .ilike('name', `%${search.toLowerCase()}%`);
-    } else if (
-      !!filters &&
-      filters['category']?.length &&
-      filters['sort']?.length
-    ) {
-      data = await supabase
-        .from('items')
-        .select()
-        .eq('type', filters['category'] || null)
-        .order('price', {
-          ascending: filters['sort'] === 'price_low' ?? null,
-        });
-    } else if (!!filters && filters['category']?.length) {
-      data = await supabase
-        .from('items')
-        .select()
-        .eq('type', filters['category'] || null);
-    } else if (!!filters && filters['sort']?.length) {
-      data = await supabase
-        .from('items')
-        .select()
-        .order('price', {
-          ascending: filters['sort'] === 'price_low' ?? null,
-        });
-    } else {
-      data = await supabase.from('items').select();
-    }
+  //   if (search) {
+  //     data = await supabase
+  //       .from('items')
+  //       .select()
+  //       .ilike('name', `%${search.toLowerCase()}%`);
+  //   } else if (
+  //     !!filters &&
+  //     filters['category']?.length &&
+  //     filters['sort']?.length
+  //   ) {
+  //     data = await supabase
+  //       .from('items')
+  //       .select()
+  //       .eq('type', filters['category'] || null)
+  //       .order('price', {
+  //         ascending: filters['sort'] === 'price_low' ?? null,
+  //       });
+  //   } else if (!!filters && filters['category']?.length) {
+  //     data = await supabase
+  //       .from('items')
+  //       .select()
+  //       .eq('type', filters['category'] || null);
+  //   } else if (!!filters && filters['sort']?.length) {
+  //     data = await supabase
+  //       .from('items')
+  //       .select()
+  //       .order('price', {
+  //         ascending: filters['sort'] === 'price_low' ?? null,
+  //       });
+  //   } else {
+  //     data = await supabase.from('items').select();
+  //   }
 
-    if (!Object.values(filters)?.some((fValue) => fValue !== '')) {
-      const formattedItems = Object.keys(burgerType).reduce(
-        (acc: any, bgType: string) => {
-          acc.push(data.data.filter((bg: BurgerProps) => bg.type === bgType));
+  //   if (!Object.values(filters)?.some((fValue) => fValue !== '')) {
+  //     const formattedItems = Object.keys(burgerType).reduce(
+  //       (acc: any, bgType: string) => {
+  //         acc.push(data.data.filter((bg: BurgerProps) => bg.type === bgType));
 
-          return acc;
-        },
-        []
-      );
+  //         return acc;
+  //       },
+  //       []
+  //     );
 
-      setItems(formattedItems.flat());
-      return;
-    }
+  //     setItems(formattedItems.flat());
+  //     return;
+  //   }
 
-    console.log('🚀 ~ fetchData ~ data:', data);
-    setItems(data.data);
-  };
+  //   console.log('🚀 ~ fetchData ~ data:', data);
+  //   setItems(data.data);
+  // };
 
   useEffect(() => {
-    fetchData();
+    fetchMenu()
+      .then((data) => setItems(data))
+      .catch((err) => console.error(err));
   }, [search, filters]);
+
+  function handleFilter() {
+    setIsFilterOpen(true);
+  }
 
   function getNextViewIndex(): 'list' | 'card' | 'grid' {
     const currentSelectedIndex =
@@ -122,7 +122,7 @@ export function Menu({ filters, searchTerm: search, onFilter }: any) {
         return (
           <ul>
             {items?.map((brg) => (
-              <BgrCard data={brg} />
+              <BgrCard data={brg} key={brg.id} />
             ))}
           </ul>
         );
@@ -130,7 +130,7 @@ export function Menu({ filters, searchTerm: search, onFilter }: any) {
         return (
           <ul className="grid grid-cols-2 md:grid-cols-3 gap-4 mx-4 mt-4">
             {items?.map((brg) => (
-              <BgrSquare data={brg} />
+              <BgrSquare data={brg} key={brg.id} />
             ))}
           </ul>
         );
@@ -138,7 +138,7 @@ export function Menu({ filters, searchTerm: search, onFilter }: any) {
         return (
           <ul>
             {items?.map((brg) => (
-              <BgrRow data={brg} />
+              <BgrRow data={brg} key={brg.id} />
             ))}
           </ul>
         );
@@ -146,30 +146,49 @@ export function Menu({ filters, searchTerm: search, onFilter }: any) {
   }
 
   return (
-    <main className="w-full max-w-lg mx-auto my-0 bg-background">
-      <header className="mx-4 mt-6 flex items-center gap-2">
-        <h1 className="font-passion-one text-4xl">CARDÁPIO</h1>
-        <FilterButton className="mr-0 ml-auto" onClick={changeViewType}>
-          {renderListTypeIcon()}
-        </FilterButton>
-        <FilterButton onClick={onFilter}>
-          <Funnel size={20} weight="thin" color="#D9D9D9" className="mr-1" />
-          Filtrar
-        </FilterButton>
-      </header>
+    <main className="w-full max-w-lg mx-auto my-0 bg-background min-h-[60vh]">
+      <GlobalFilterProvider>
+        <GlobalFilterDrawer
+          open={isFilterOpen}
+          onOpenChange={setIsFilterOpen}
+          onCancel={() => setFilters({})}
+        >
+          <GlobalFilter
+            defaultValue={filters}
+            onFilter={(f: any) => {
+              setFilters(f);
+              setIsFilterOpen(false);
+            }}
+          />
+        </GlobalFilterDrawer>
+        <header className="mx-4 mt-6 flex items-center gap-2">
+          <h1 className="font-passion-one text-4xl">CARDÁPIO</h1>
+          <FilterButton className="mr-0 ml-auto" onClick={changeViewType}>
+            {renderListTypeIcon()}
+          </FilterButton>
+          <FilterButton onClick={handleFilter}>
+            <Funnel size={20} weight="thin" color="#D9D9D9" className="mr-1" />
+            Filtrar
+          </FilterButton>
+        </header>
 
-      {renderCurrentView()}
+        {renderCurrentView()}
 
-      {/* <List search={search} filters={filters} /> */}
+        {/* <List search={search} filters={filters} /> */}
+      </GlobalFilterProvider>
     </main>
   );
 }
 
-function ItemWrapperButton({ children, ...rest }: any) {
+function ItemWrapperButton({ children, itemId, ...rest }: any) {
+  const navigate = useNavigate();
+
   return (
     <button
       type="button"
-      onClick={() => alert('Piceto pôbona calate')}
+      onClick={() => {
+        navigate(`/${itemId}`);
+      }}
       {...rest}
     >
       {children}
@@ -177,10 +196,13 @@ function ItemWrapperButton({ children, ...rest }: any) {
   );
 }
 
-function BgrRow({ data: bgr }: { data: BurgerProps }) {
+function BgrRow({ data: bgr, ...rest }: { data: BurgerProps }) {
   return (
-    <li key={bgr.id} className="bg-[#161616] rounded-[1.25rem] mx-4 mt-4 ">
-      <ItemWrapperButton className="flex leading-none p-3 gap-3 w-full">
+    <li className="bg-[#161616] rounded-[1.25rem] mx-4 mt-4 " {...rest}>
+      <ItemWrapperButton
+        itemId={bgr.id}
+        className="flex leading-none p-3 gap-3 w-full"
+      >
         <img
           src={bgr.image}
           alt={bgr.name}
@@ -191,7 +213,7 @@ function BgrRow({ data: bgr }: { data: BurgerProps }) {
           <header className="text-left flex-1 flex">
             <div>
               <span className="leading-5 text-sm font-bold text-neutral-500">
-                {burgerType[bgr.type]}
+                {burgerType[bgr.type as 'smash' | 'burger' | 'acc']}
               </span>
 
               <h1 className="font-medium text-2xl uppercase leading-7 font-passion-one">
@@ -222,13 +244,13 @@ function BgrRow({ data: bgr }: { data: BurgerProps }) {
   );
 }
 
-function BgrCard({ data: bgr }: { data: BurgerProps }) {
+function BgrCard({ data: bgr, ...rest }: { data: BurgerProps }) {
   return (
     <li
-      key={bgr.id}
       className="text-center text-[#EAEBED] font-medium text-xl flex flex-col gap-1 mx-4 mt-4 overflow-hidden rounded-[1.25rem] bg-[#161616] w-['calc(100vw-2rem)']"
+      {...rest}
     >
-      <ItemWrapperButton>
+      <ItemWrapperButton itemId={bgr.id}>
         <img
           src={bgr.image}
           alt={bgr.name}
@@ -238,7 +260,7 @@ function BgrCard({ data: bgr }: { data: BurgerProps }) {
         <div className="w-full flex justify-between items-center px-4 py-3 hover:cursor-pointer">
           <div className="flex flex-col text-left">
             <span className="leading-5 text-sm font-bold text-[#8A8A8A]">
-              {burgerType[bgr.type]}
+              {burgerType[bgr.type as 'smash' | 'burger' | 'acc']}
             </span>
 
             <h1 className="font-medium text-3xl uppercase leading-7 font-passion-one">
@@ -266,10 +288,10 @@ function BgrCard({ data: bgr }: { data: BurgerProps }) {
   );
 }
 
-function BgrSquare({ data: bgr }: { data: BurgerProps }) {
+function BgrSquare({ data: bgr, ...rest }: { data: BurgerProps }) {
   return (
-    <li>
-      <ItemWrapperButton>
+    <li {...rest}>
+      <ItemWrapperButton itemId={bgr.id}>
         <img
           src={bgr.image}
           alt={bgr.name}

@@ -7,19 +7,21 @@ import { ArrowLeft, Export, Hamburger } from '@phosphor-icons/react';
 import { BurgerPageSkeleton } from '../components/skeleton/BurgerPageSkeleton';
 import { GlobalFilterDrawer as Drawer } from '../components/GlobalFilterDrawer';
 import { Review } from '../components/Review';
+import { Item, fetchMenu } from '../services/items';
 
-interface BurgerProps {
-  image: string;
-  id: number;
-  type: string;
-  name: string;
-  price: string;
-  description?: string;
-}
+// interface BurgerProps {
+//   image: string;
+//   id: number;
+//   type: string;
+//   name: string;
+//   price: string;
+//   description?: string;
+// }
 
 export default function BurgerPage() {
   // const [open, setOpen] = useState(false);
-  const [burgerData, setBurgerData] = useState<BurgerProps>();
+  const [burgerData, setBurgerData] = useState<Item>();
+  console.log('burger_data', burgerData);
   const [isLoading, setIsLoading] = useState(true);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
@@ -29,20 +31,31 @@ export default function BurgerPage() {
   const fetchData = async () => {
     setIsLoading(true);
 
-    try {
-      const data: any = await supabase
-        .from('items')
-        .select()
-        .eq('id', burgerId);
+    fetchMenu()
+      .then((data) => {
+        console.log('fetchMenu', data);
+        const item = data.find((i) => i.id === Number(burgerId));
+        setBurgerData(item);
+      })
+      .catch((err) => console.error(err))
+      .finally(() => {
+        setIsLoading(false);
+      });
 
-      if (!data.error) {
-        setBurgerData(data.data[0]);
-      }
-    } catch (e) {
-      console.log(e);
-    } finally {
-      setIsLoading(false);
-    }
+    // try {
+    //   const data: any = await supabase
+    //     .from('items')
+    //     .select()
+    //     .eq('id', burgerId);
+
+    //   if (!data.error) {
+    //     setBurgerData(data.data[0]);
+    //   }
+    // } catch (e) {
+    //   console.log(e);
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   useEffect(() => {

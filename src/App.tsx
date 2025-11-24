@@ -13,63 +13,29 @@ import { Menu } from './pages/Menu';
 
 const App = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  // const [filters, setFilters] = useState<any>({ view: 'list' });
-  const [filters, setFilters] = useState<any>({});
+
   const [searchTerm, setSearchTerm] = useState();
 
-  function handleFilter() {
-    setIsFilterOpen(true);
-  }
-
   return (
-    <GlobalFilterProvider>
-      <GlobalFilterDrawer
-        open={isFilterOpen}
-        onOpenChange={setIsFilterOpen}
-        onCancel={() => setFilters({})}
-      >
-        <GlobalFilter
-          defaultValue={filters}
-          onFilter={(f: any) => {
-            setFilters(f);
-            setIsFilterOpen(false);
-          }}
-        />
-      </GlobalFilterDrawer>
+    <div vaul-drawer-wrapper="" className="overflow-y-hidden">
+      <Header setIsMenuOpen={setIsMenuOpen} setSearch={setSearchTerm} />
 
-      <div vaul-drawer-wrapper="" className="overflow-y-hidden">
-        <Header
-          setIsMenuOpen={setIsMenuOpen}
-          setSearch={setSearchTerm}
-          onFilter={handleFilter}
-        />
+      <div className="h-[calc(100vh-5rem)] overflow-y-auto relative">
+        <Routes>
+          <Route path="/:burgerId" element={<Burger />} />
 
-        <div className="h-[calc(100vh-5rem)] overflow-y-auto relative">
-          <Routes>
-            <Route path="/:burgerId" element={<Burger />} />
-            <Route
-              path="/"
-              element={
-                <Menu
-                  filters={filters}
-                  searchTerm={searchTerm}
-                  onFilter={handleFilter}
-                />
-              }
-            />
-          </Routes>
+          <Route path="/" element={<Menu searchTerm={searchTerm} />} />
+        </Routes>
 
-          <Footer />
-        </div>
+        <Footer />
       </div>
-    </GlobalFilterProvider>
+    </div>
   );
 };
 
 export default App;
 
-function Header({ setIsMenuOpen, onFilter, setSearch }: any) {
+function Header({ setIsMenuOpen, setSearch }: any) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   return (

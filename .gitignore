@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Postgres (Docker) data volume
+data/
+
+# Backups locais do banco / storage
+db_backups/
+public/images/
+# macOS
+.DS_Store
