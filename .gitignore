@@ -28,6 +28,7 @@ data/
 
 # Backups locais do banco / storage
 db_backups/
-public/images/
+public/images/smash*
+public/images/burg-g*
 # macOS
 .DS_Store
