@@ -28,9 +28,8 @@ data/
 
 # Backups locais do banco / storage
 db_backups/
-# public/images/smash-c*
-# public/images/smash-m*
-# public/images/smash-o*
-public/images/burg*
+
 # macOS
 .DS_Store
+
+public/images/burg-gordon-nobg.jpg
